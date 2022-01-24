@@ -1,0 +1,109 @@
+body {
+  margin: 0px;
+  width: 100%;
+}
+
+.primary-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-icons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-primary-icon {
+  width: 25%;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+.nav-logo, .nav-shop, .nav-about, .nav-try-me, .nav-clothing,  .nav-accessories, .nav-shoes {
+  border-right: 1px solid black;
+}
+
+.secondary-nav {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid black;
+  p {
+    margin: 0px 0px 0px 0px;
+  }
+}
+
+.nav-secondary-icon {
+  width: 25%;
+}
+
+.nav-clothing, .nav-accessories, .nav-shoes, .nav-beauty {
+  padding: 10px 0px 10px 10px;
+}
+
+// * Home Page
+
+.home-page-first-section {
+  display: flex;
+}
+
+.home-page-split-left {
+  width: 50%;
+  img {
+    width: 100%;
+    margin: 0px;
+  }
+}
+
+.home-page-split-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  img {
+    width: 50%;
+  }
+}
+
+//  * Index Page
+
+.index-page {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filter-left {
+  width: 20%;
+  overflow: none;
+}
+
+.category {
+  border-bottom: 1px solid black;
+  padding: 17px 0px 17px 10px;
+  border-right: 1px solid black;
+  p {
+    margin: 0px;
+  }
+}
+
+.index-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  .gallery {
+    width: 33%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.filters {
+  border-bottom: 1px solid black;
+  padding: 17px 0px 17px 10px;
+  border-left: 1px solid black;
+  p {
+    margin: 0px;
+  }
+}
