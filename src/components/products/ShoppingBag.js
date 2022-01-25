@@ -1,26 +1,44 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
-import { getUserProfile } from '../lib/api'
+import { getUserProfile, headers } from '../lib/api'
 import Loading from '../common/Loading'
 import Error from '../common/Error'
+import { getUserId } from '../lib/auth'
 
 function ShoppingBag() {
   const [productsInShoppingBag, setProductsInShoppingBag] = React.useState([])
   const [isError, setIsError] = React.useState(false)
   const isLoading = !isError && !productsInShoppingBag
+  const [productId, setProductId] = React.useState(null)
 
   React.useEffect(() => {
     const getData = async () => {
       try {
         const res = await getUserProfile()
         setProductsInShoppingBag(res.data.productsInShoppingBag)
+        res.data.productsInShoppingBag.filter(shoppingbag => {
+          if (String(shoppingbag.owner) === getUserId()) {
+            setProductId(shoppingbag.product.id)
+          }
+          return 
+        })
       } catch (err) {
         setIsError(true)
       }
     }
     getData()
   }, [])
+
+  const handleRemoveFromShoppingBag = async (e) => {
+    try {
+      const res = axios.delete(`/api/products/${productId}/shoppingbag/${e.target.id}/`, headers())
+      console.log(res)
+    } catch (err) {
+      setIsError(true)
+    }
+  }
 
   return (
     <>
@@ -45,7 +63,11 @@ function ShoppingBag() {
                 <p>£{product.product.price}</p>
               </Link>
               <button>Move To WishList</button>
-              <button>Remove</button>
+              <button 
+                onClick={handleRemoveFromShoppingBag}
+                id={product.id}
+              >
+                Remove</button>
             </div>
           ))}
           </div>
