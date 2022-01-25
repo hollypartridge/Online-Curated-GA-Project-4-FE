@@ -24,6 +24,11 @@ function Nav() {
     setisWishListOpen(false)
   }
 
+  const handleShoppingBagClick = () => {
+    navigate('/shoppingbag')
+    setisShoppingBagMenuOpen(false)
+  }
+
   const handleUserMenu = () => {
     setUserMenuOpen(!isUserMenuOpen)
     setisShoppingBagMenuOpen(false)
@@ -112,7 +117,10 @@ function Nav() {
       </div>}
       {isShoppingBagMenuOpen &&
       <div className='drop-down-nav'>
-        <div className="nav-drop-down nav-secondary-icon">
+        <div 
+          className="nav-drop-down nav-secondary-icon"
+          onClick={handleShoppingBagClick}
+        >
           <p>Shopping Bag</p>
         </div>
       </div>}

@@ -5,6 +5,7 @@ import Home from './components/common/Home'
 import Nav from './components/common/Nav'
 import ProductIndex from './components/products/ProductIndex'
 import ProductShow from './components/products/ProductShow'
+import ShoppingBag from './components/products/ShoppingBag'
 import Wishlist from './components/products/Wishlist'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path = "/register" element = {<Register />} />
         <Route path = "/login" element = {<Login />} />
         <Route path = "/wishlist" element = {<Wishlist />} />
+        <Route path = "/shoppingbag" element = {<ShoppingBag />} />
       </Routes>
     </BrowserRouter>
   )

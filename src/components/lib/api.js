@@ -22,12 +22,22 @@ export function getSingleProduct(productId) {
 
 // * Wishlist Requests
 
-export function addToWishlist(productId, addToWishListInfo) {
-  return axios.post(`/api/products/${productId}/wishlist/`, addToWishListInfo, headers())
+export function addToWishlist(productId, productInteractionInfo) {
+  return axios.post(`/api/products/${productId}/wishlist/`, productInteractionInfo, headers())
 }
 
 export function removeFromWishlist(productId, wishlistId) {
   return axios.delete(`/api/products/${productId}/wishlist/${wishlistId}/`, headers())
+}
+
+// * Shopping Bag Requests
+
+export function addToShoppingBag(productId, productInteractionInfo) {
+  return axios.post(`/api/products/${productId}/shoppingbag/`, productInteractionInfo, headers())
+}
+
+export function removeFromShoppingBag(productId, shoppingbagId) {
+  return axios.delete(`/api/products/${productId}/shoppingbag/${shoppingbagId}/`, headers())
 }
 
 // * Auth Requests

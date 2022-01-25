@@ -1,10 +1,10 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { addToWishlist, getSingleProduct, removeFromWishlist } from '../lib/api'
+import { addToWishlist, getSingleProduct, removeFromWishlist, addToShoppingBag, removeFromShoppingBag } from '../lib/api'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
-import { getUserId } from '../lib/auth'
+import { getUserId, isAuthenticated } from '../lib/auth'
 
 function ProductShow() {
   const { productId } = useParams()
@@ -14,8 +14,11 @@ function ProductShow() {
   const navigate = useNavigate()
   const [isWishlisted, setIsWishListed] = React.useState(false)
   const [wishlistId, setWishlistId] = React.useState(null)
+  const isAuth = isAuthenticated()
+  const [isInShoppingBag, setIsInShoppingBag] = React.useState(false)
+  const [shoppingbagId, setShoppingBagId] = React.useState(null)
 
-  const addToWishListInfo = {
+  const productInteractionInfo = {
     product: productId,
     owner: getUserId(),
   }
@@ -29,9 +32,19 @@ function ProductShow() {
         if (userWhoHaveWishlisted.includes(String(getUserId()))) {
           setIsWishListed(true)
         } 
+        const usersWhoHaveInShoppingBag = res.data.inShoppingBagOf.map(wishlist => String(wishlist.owner.id))
+        if (usersWhoHaveInShoppingBag.includes(String(getUserId()))) {
+          setIsInShoppingBag(true)
+        } 
         res.data.wishlistedBy.filter(wishlist => {
           if (String(wishlist.owner.id) === getUserId()) {
             setWishlistId(wishlist.id)
+          }
+          return 
+        })
+        res.data.inShoppingBagOf.filter(shoppingbag => {
+          if (String(shoppingbag.owner.id) === getUserId()) {
+            setShoppingBagId(shoppingbag.id)
           }
           return 
         })
@@ -42,26 +55,45 @@ function ProductShow() {
     getData()
   }, [productId])
 
-  console.log(wishlistId)
-
-  const handleAddToWishList = async (e) => {
-    e.preventDefault()
+  const handleAddToWishList = async () => {
     try {
-      const res = await addToWishlist(productId, addToWishListInfo)
-      setProduct(res.data)
-      navigate('/wishlist')
+      if (isAuth) {
+        const res = await addToWishlist(productId, productInteractionInfo)
+        setProduct(res.data)
+        navigate('/wishlist')
+      } else {
+        navigate('/login')
+      }
     } catch (err) {
-      console.log(err)
+      setIsError(true)
     }
   }
 
-  const handleRemoveFromWishlist = async (e) => {
-    e.preventDefault()
+  const handleRemoveFromWishlist = async () => {
     try {
       await removeFromWishlist(productId, wishlistId)
       setIsWishListed(false)
     } catch (err) {
-      console.log(err)
+      setIsError(true)
+    }
+  }
+
+  const handleAddToShoppingBag = async () => {
+    try {
+      const res = await addToShoppingBag(productId, productInteractionInfo)
+      setProduct(res.data)
+      navigate('/shoppingbag')
+    } catch (err) {
+      setIsError(true)
+    }
+  }
+
+  const handleRemoveFromShoppingBag = async () => {
+    try {
+      await removeFromShoppingBag(productId, shoppingbagId)
+      setIsInShoppingBag(false)
+    } catch (err) {
+      setIsError(true)
     }
   }
 
@@ -76,7 +108,11 @@ function ProductShow() {
         <p>{product.designer}</p>
         <p>{product.price}</p>
         <p>{product.description}</p>
-        <button>Buy Now</button>
+        {isInShoppingBag ? 
+          <button onClick={handleRemoveFromShoppingBag}>Remove From Shopping Bag</button>
+          :
+          <button onClick={handleAddToShoppingBag}>Buy Now</button>
+        }
         {isWishlisted ? 
           <button onClick={handleRemoveFromWishlist}>Remove From Wishlist</button>
           :
