@@ -2,6 +2,10 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 function Nav() {
+  const [isUserMenuOpen, setUserMenuOpen] = React.useState(false)
+  const [isShoppingBagMenuOpen, setisShoppingBagMenuOpen] = React.useState(false)
+  const [isWishListOpen, setisWishListOpen] = React.useState(false)
+  const [isSearchBarOpen, setIsSearchBarOpen] = React.useState(false)
   const navigate = useNavigate()
 
   const handleHomeClick = () => {
@@ -10,7 +14,35 @@ function Nav() {
 
   const handleShopClick = () => {
     navigate('/shop')
-  }  
+  }
+  
+  const handleUserMenu = () => {
+    setUserMenuOpen(!isUserMenuOpen)
+    setisShoppingBagMenuOpen(false)
+    setisWishListOpen(false)
+    setIsSearchBarOpen(false)
+  }
+  
+  const handleShoppingBagMenu = () => {
+    setisShoppingBagMenuOpen(!isShoppingBagMenuOpen)
+    setUserMenuOpen(false)
+    setisWishListOpen(false)
+    setIsSearchBarOpen(false)
+  }
+
+  const handleWishListMenu = () => {
+    setisWishListOpen(!isWishListOpen)
+    setisShoppingBagMenuOpen(false)
+    setUserMenuOpen(false)
+    setIsSearchBarOpen(false)
+  }
+
+  const handleSearchBarMenu = () => {
+    setIsSearchBarOpen(!isSearchBarOpen)
+    setisShoppingBagMenuOpen(false)
+    setUserMenuOpen(false)
+    setisWishListOpen(false)
+  }
 
   return (
     <nav>
@@ -34,12 +66,36 @@ function Nav() {
           <p>Try Me</p>
         </div>
         <div className="nav-icons nav-primary-icon">
-          <p>💰</p>
-          <p>🍄</p>
-          <p>H</p>
-          <p>H</p>
+          <p onClick={handleShoppingBagMenu}>💰</p>
+          <p onClick={handleWishListMenu}>🍄</p>
+          <p onClick={handleSearchBarMenu}>H</p>
+          <p onClick={handleUserMenu}>🧚‍♀️</p>
         </div>
       </div>
+      {isUserMenuOpen &&
+      <div className='drop-down-nav'>
+        <div className="nav-drop-down nav-secondary-icon">
+          <p>Login</p>
+        </div>
+      </div>}
+      {isShoppingBagMenuOpen &&
+      <div className='drop-down-nav'>
+        <div className="nav-drop-down nav-secondary-icon">
+          <p>Shopping Bag</p>
+        </div>
+      </div>}
+      {isWishListOpen &&
+      <div className='drop-down-nav'>
+        <div className="nav-drop-down nav-secondary-icon">
+          <p>Wishlist</p>
+        </div>
+      </div>}
+      {isSearchBarOpen &&
+      <div className='drop-down-nav'>
+        <div className="nav-drop-down nav-secondary-icon">
+          <p>Search</p>
+        </div>
+      </div>}
     </nav>
   )
 }

@@ -3,13 +3,16 @@ import { useNavigate, Link } from 'react-router-dom'
 
 import { registerUser } from '../lib/api'
 
+const initialState = {
+  email: '',
+  username: '',
+  password: '',
+  passwordConfirmation: '',
+}
+
 function Register() {
-  const [formData, setFormData] = React.useState({
-    email: '',
-    username: '',
-    password: '',
-    passwordConfirmation: '',
-  })
+  const [formData, setFormData] = React.useState(initialState)
+  const [formErrors, setFormErrors] = React.useState(initialState)
   const navigate = useNavigate()
 
   const handleChange = (e) => {
@@ -23,7 +26,7 @@ function Register() {
       await registerUser(formData)
       navigate('/')
     } catch (err) {
-      console.log(err.response.data)
+      setFormErrors(err.response.data)
     }
   }
 
@@ -39,6 +42,7 @@ function Register() {
             id="email"
             onChange={handleChange}
           />
+          {formErrors.email && <p>{formErrors.email}</p>}
         </div>
         <div>
           <label htmlFor="username"></label>
@@ -48,6 +52,7 @@ function Register() {
             id="username"
             onChange={handleChange}
           />
+          {formErrors.username && <p>{formErrors.username}</p>}
         </div>
         <div>
           <label htmlFor="password"></label>
@@ -58,6 +63,7 @@ function Register() {
             type="password"
             onChange={handleChange}
           />
+          {formErrors.password && <p>{formErrors.password}</p>}
         </div>
         <div>
           <label htmlFor="passwordConfirmation"></label>
@@ -68,6 +74,8 @@ function Register() {
             type="password"
             onChange={handleChange}
           />
+          {formErrors.passwordConfirmation && <p>{formErrors.passwordConfirmation}</p>}
+          {formErrors.detail && <p>{formErrors.detail}</p>}
         </div>
         <div>
           <button>Create</button>

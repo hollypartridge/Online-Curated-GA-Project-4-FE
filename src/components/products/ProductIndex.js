@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Error from '../common/Error'
+import Loading from '../common/Loading'
 import { getAllProducts } from '../lib/api'
 
 function ProductIndex() {
@@ -9,11 +11,17 @@ function ProductIndex() {
   const [isAccessoriesgOpen, setIsAccessoriesOpen] = React.useState(false)
   const [isShoesOpen, setIsShoesOpen] = React.useState(false)
   const [isBeautyOpen, setIsBeautyOpen] = React.useState(false)
+  const [isError, setIsError] = React.useState(false)
+  const isLoading = !products && !isError
 
   React.useEffect(() => {
     const getData = async () => {
-      const res = await getAllProducts()
-      setProducts(res.data)
+      try {
+        const res = await getAllProducts()
+        setProducts(res.data)
+      } catch (err) {
+        setIsError(true)
+      }
     }
     getData()
   }, [])
@@ -114,7 +122,9 @@ function ProductIndex() {
         </div>
       </div>
       <div className="index-gallery">
-        {products ?
+        {isError && <Error />}
+        {isLoading && <Loading />}
+        {products &&
           filteredClothing().map(product => (
             <div key={product.id} className='gallery'>
               <Link key={product.id} to={`/shop/${product.id}`}>
@@ -124,10 +134,7 @@ function ProductIndex() {
                 <p>£{product.price}</p>
               </Link>
             </div>
-          ))
-          :
-          <p>Loading...</p>
-        }
+          ))}
       </div>
       <div className="filter-left">
         <div className='filters'>

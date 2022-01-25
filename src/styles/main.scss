@@ -41,6 +41,18 @@ body {
   padding: 10px 0px 10px 10px;
 }
 
+.drop-down-nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-secondary-icon {
+  width: 19.9%;
+  text-align: center;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+}
+
 // * Home Page
 
 .home-page-first-section {
