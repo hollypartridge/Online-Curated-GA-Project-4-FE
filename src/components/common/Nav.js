@@ -1,12 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { isAuthenticated, removeToken } from '../lib/auth'
+
 function Nav() {
   const [isUserMenuOpen, setUserMenuOpen] = React.useState(false)
   const [isShoppingBagMenuOpen, setisShoppingBagMenuOpen] = React.useState(false)
   const [isWishListOpen, setisWishListOpen] = React.useState(false)
   const [isSearchBarOpen, setIsSearchBarOpen] = React.useState(false)
   const navigate = useNavigate()
+  const isAuth = isAuthenticated()
 
   const handleHomeClick = () => {
     navigate('/')
@@ -44,6 +47,17 @@ function Nav() {
     setisWishListOpen(false)
   }
 
+  const handleLogout = () => {
+    setUserMenuOpen(false)
+    removeToken()
+    navigate('/')
+  }
+
+  const handleLogin = () => {
+    setUserMenuOpen(false)
+    navigate('/login')
+  }
+
   return (
     <nav>
       <div className="primary-nav">
@@ -74,9 +88,21 @@ function Nav() {
       </div>
       {isUserMenuOpen &&
       <div className='drop-down-nav'>
-        <div className="nav-drop-down nav-secondary-icon">
-          <p>Login</p>
-        </div>
+        {isAuth ? (
+          <div 
+            className="nav-drop-down nav-secondary-icon"
+            onClick={handleLogout}
+          >
+            <p>Logout</p>
+          </div>
+        ) : (
+          <div 
+            className="nav-drop-down nav-secondary-icon"
+            onClick={handleLogin}
+          >
+            <p>Login</p>
+          </div>
+        )}
       </div>}
       {isShoppingBagMenuOpen &&
       <div className='drop-down-nav'>
