@@ -17,3 +17,7 @@ export function getSingleProduct(productId) {
 export function registerUser(formData) {
   return axios.post(`${baseUrl}/register/`, formData)
 }
+
+export function loginUser(formData) {
+  return axios.post('/api/login/', formData)
+}

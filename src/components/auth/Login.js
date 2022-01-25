@@ -1,14 +1,13 @@
+
 import React from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { loginUser } from '../lib/api'
+import { setToken } from '../lib/auth'
 
-import { registerUser } from '../lib/api'
-
-function Register() {
+function Login() {
   const [formData, setFormData] = React.useState({
     email: '',
-    username: '',
     password: '',
-    passwordConfirmation: '',
   })
   const navigate = useNavigate()
 
@@ -20,7 +19,8 @@ function Register() {
     e.preventDefault()
 
     try {
-      await registerUser(formData)
+      const res = await loginUser(formData)
+      setToken(res.data.token)
       navigate('/')
     } catch (err) {
       console.log(err.response.data)
@@ -29,7 +29,7 @@ function Register() {
 
   return (
     <div>
-      <p>Create Account</p>
+      <p>Login</p>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email"></label>
@@ -37,15 +37,6 @@ function Register() {
             placeholder="Email" 
             name="email"
             id="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="username"></label>
-          <input 
-            placeholder="Username" 
-            name="username"
-            id="username"
             onChange={handleChange}
           />
         </div>
@@ -60,22 +51,12 @@ function Register() {
           />
         </div>
         <div>
-          <label htmlFor="passwordConfirmation"></label>
-          <input 
-            placeholder="Confirm Password" 
-            name="passwordConfirmation"
-            id="passwordConfirmation"
-            type="password"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <button>Create</button>
-          <Link to='/login'><p>Already have an account? Login</p></Link>
+          <button>Sign In</button>
+          <Link to='/register'><p>Create an account</p></Link>
         </div>
       </form>
     </div>
   )
 }
 
-export default Register
+export default Login
