@@ -26,6 +26,10 @@ export function addToWishlist(productId, addToWishListInfo) {
   return axios.post(`/api/products/${productId}/wishlist/`, addToWishListInfo, headers())
 }
 
+export function removeFromWishlist(productId, wishlistId) {
+  return axios.delete(`/api/products/${productId}/wishlist/${wishlistId}/`, headers())
+}
+
 // * Auth Requests
 
 export function registerUser(formData) {

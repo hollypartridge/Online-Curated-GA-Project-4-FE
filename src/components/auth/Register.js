@@ -24,7 +24,7 @@ function Register() {
 
     try {
       await registerUser(formData)
-      navigate('/')
+      navigate('/login')
     } catch (err) {
       setFormErrors(err.response.data)
     }
