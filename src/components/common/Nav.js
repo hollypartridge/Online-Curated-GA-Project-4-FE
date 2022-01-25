@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { isAuthenticated, removeToken } from '../lib/auth'
+import { isAuthenticated, removeToken, removeUserId } from '../lib/auth'
 
 function Nav() {
   const [isUserMenuOpen, setUserMenuOpen] = React.useState(false)
@@ -19,6 +19,11 @@ function Nav() {
     navigate('/shop')
   }
   
+  const handleWishlistClick = () => {
+    navigate('/wishlist')
+    setisWishListOpen(false)
+  }
+
   const handleUserMenu = () => {
     setUserMenuOpen(!isUserMenuOpen)
     setisShoppingBagMenuOpen(false)
@@ -50,6 +55,7 @@ function Nav() {
   const handleLogout = () => {
     setUserMenuOpen(false)
     removeToken()
+    removeUserId()
     navigate('/')
   }
 
@@ -112,7 +118,10 @@ function Nav() {
       </div>}
       {isWishListOpen &&
       <div className='drop-down-nav'>
-        <div className="nav-drop-down nav-secondary-icon">
+        <div 
+          className="nav-drop-down nav-secondary-icon"
+          onClick={handleWishlistClick}
+        >
           <p>Wishlist</p>
         </div>
       </div>}

@@ -1,4 +1,5 @@
 const tokenName = 'token'
+const idName = 'id'
 
 export function setToken(token) {
   window.localStorage.setItem(tokenName, token)
@@ -10,6 +11,18 @@ export function getToken() {
 
 export function removeToken() {
   return window.localStorage.removeItem(tokenName)
+}
+
+export function setUserId(id) {
+  window.localStorage.setItem(idName, id)
+}
+
+export function getUserId() {
+  return window.localStorage.getItem(idName)
+}
+
+export function removeUserId() {
+  return window.localStorage.removeItem(idName)
 }
 
 function getPayload() {

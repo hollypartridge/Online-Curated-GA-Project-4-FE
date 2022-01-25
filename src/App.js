@@ -5,6 +5,7 @@ import Home from './components/common/Home'
 import Nav from './components/common/Nav'
 import ProductIndex from './components/products/ProductIndex'
 import ProductShow from './components/products/ProductShow'
+import Wishlist from './components/products/Wishlist'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path = "/shop/:productId" element = {<ProductShow />} />
         <Route path = "/register" element = {<Register />} />
         <Route path = "/login" element = {<Login />} />
+        <Route path = "/wishlist" element = {<Wishlist />} />
       </Routes>
     </BrowserRouter>
   )

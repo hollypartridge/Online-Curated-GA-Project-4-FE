@@ -1,15 +1,22 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
-import { getSingleProduct } from '../lib/api'
+import { addToWishlist, getSingleProduct } from '../lib/api'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
+import { getUserId } from '../lib/auth'
 
 function ProductShow() {
   const { productId } = useParams()
   const [product, setProduct] = React.useState([])
   const [isError, setIsError] = React.useState(false)
   const isLoading = !product && !isError
+  const navigate = useNavigate()
+
+  const addToWishListInfo = {
+    product: productId,
+    owner: getUserId(),
+  }
 
   React.useEffect(() => {
     const getData = async () => {
@@ -22,7 +29,19 @@ function ProductShow() {
     }
     getData()
   }, [productId])
-  
+
+  const handleAddToWishList = async (e) => {
+    e.preventDefault()
+    try {
+      const res = await addToWishlist(productId, addToWishListInfo)
+      setProduct(res.data)
+      navigate('/wishlist')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  console.log(product)
 
   return (
     <>
@@ -36,7 +55,7 @@ function ProductShow() {
         <p>{product.price}</p>
         <p>{product.description}</p>
         <button>Buy Now</button>
-        <button>Add To Wishlist</button>
+        <button onClick={handleAddToWishList}>Add To Wishlist</button>
         <button>Try Me</button>
       </div>}
     </>

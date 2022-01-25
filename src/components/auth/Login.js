@@ -2,7 +2,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { loginUser } from '../lib/api'
-import { setToken } from '../lib/auth'
+import { setToken, setUserId } from '../lib/auth'
 
 function Login() {
   const [formData, setFormData] = React.useState({
@@ -22,6 +22,7 @@ function Login() {
     try {
       const res = await loginUser(formData)
       setToken(res.data.token)
+      setUserId(res.data.id)
       navigate('/')
     } catch (err) {
       setIsError(true)
