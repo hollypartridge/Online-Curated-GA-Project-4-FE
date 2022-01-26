@@ -14,7 +14,7 @@ body {
 }
 
 .nav-primary-icon {
-  width: 25%;
+  width: 20%;
   text-align: center;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
@@ -93,11 +93,28 @@ body {
   }
 }
 
+.home-page-third-section {
+  display: flex;
+}
+
+.home-page-third-right {
+  width: 50%;
+  img {
+    width: 100%;
+  }
+}
+
+.home-page-third-left {
+  width: 50%;
+  img {
+    width: 100%;
+  }
+}
+
 //  * Index Page
 
 .index-page {
   display: flex;
-  justify-content: space-between;
 }
 
 .filter-left {
@@ -117,9 +134,10 @@ body {
 .index-gallery {
   display: flex;
   flex-wrap: wrap;
-  width: 50%;
+  justify-content: flex-end;
+  width: 80%;
   .gallery {
-    width: 33%;
+    width: 24%;
     img {
       width: 100%;
     }

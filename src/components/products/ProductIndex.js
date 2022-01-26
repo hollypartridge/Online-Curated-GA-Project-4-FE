@@ -136,14 +136,6 @@ function ProductIndex() {
             </div>
           ))}
       </div>
-      <div className="filter-left">
-        <div className='filters'>
-          <p>Designers</p>
-        </div>
-        <div className='filters'>
-          <p>Colours</p>
-        </div>
-      </div>
     </div>
   )
 }

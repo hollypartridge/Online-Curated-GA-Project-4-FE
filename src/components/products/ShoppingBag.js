@@ -13,6 +13,7 @@ function ShoppingBag() {
   const [productId, setProductId] = React.useState(null)
   const isAuth = isAuthenticated()
   const navigate = useNavigate()
+  const [totalPrice, setTotalPrice] = React.useState(null)
 
   const productInteractionInfo = {
     product: productId,
@@ -30,6 +31,7 @@ function ShoppingBag() {
           }
           return 
         })
+        handleTotalPrice(res.data.productsInShoppingBag)
       } catch (err) {
         setIsError(true)
       }
@@ -37,9 +39,23 @@ function ShoppingBag() {
     getData()
   }, [])
 
+  const handleTotalPrice = (shoppingBag) => {
+    const onlyPrices = shoppingBag.map(product => {
+      return product.product.price
+    })
+  
+    const currentTotalPrice = onlyPrices.reduce((sum, amount) => {
+      return sum + amount
+    }, 0)
+    setTotalPrice(currentTotalPrice)
+  }
+
   const handleRemoveFromShoppingBag = async (e) => {
     try {
       await removeFromShoppingBag(productId, e)
+      const res = await getUserProfile()
+      setProductsInShoppingBag(res.data.productsInShoppingBag)
+      handleTotalPrice(res.data.productsInShoppingBag)
     } catch (err) {
       setIsError(true)
     }
@@ -95,6 +111,7 @@ function ShoppingBag() {
           ))}
           </div>
           <div>
+            <p>Total Price: £{totalPrice}</p>
             <button>Checkout</button>
           </div>
         </>}

@@ -10,6 +10,7 @@ function Home() {
   const [isError, setIsError] = React.useState(false)
   const isLoading = !isError && !products
   const [isHovering, setIsHovering] = React.useState(false)
+  const [whatProductHovering, setWhatProductHovering] = React.useState(null)
 
   const handleClick = () => {
     setIsChangingNewIn(!isChangingNewIn)
@@ -17,14 +18,12 @@ function Home() {
 
   const handleMouseEnter = (e) => {
     setIsHovering(true)
-    console.log(e.target.id)
+    setWhatProductHovering(e.target.id)
   }
 
   const handleMouseLeave = () => {
     setIsHovering(false)
   }
-
-  console.log(isHovering)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -78,9 +77,18 @@ function Home() {
             onMouseLeave={handleMouseLeave}
           >
             <img src={product.image} id={product.id}/>
+            {isHovering && whatProductHovering === String(product.id) ? <p>{product.designer}</p> : <p>{product.name}</p>}
           </div>
         ))}
       </div>
+      {/* <div className='home-page-third-section'>
+        <div className='home-page-third-right'>
+          <img src='https://i.imgur.com/xAhZViM.jpg' />
+        </div>
+        <div className='home-page-third-left'>
+          <img src='https://i.imgur.com/SWnEvGL.jpg' />
+        </div>
+      </div> */}
     </>
   )
 }
