@@ -62,7 +62,7 @@ function ProductShow() {
         setProduct(res.data)
         navigate('/wishlist')
       } else {
-        navigate('/login')
+        navigate('/useronly')
       }
     } catch (err) {
       setIsError(true)
@@ -80,9 +80,13 @@ function ProductShow() {
 
   const handleAddToShoppingBag = async () => {
     try {
-      const res = await addToShoppingBag(productId, productInteractionInfo)
-      setProduct(res.data)
-      navigate('/shoppingbag')
+      if (isAuth) {
+        const res = await addToShoppingBag(productId, productInteractionInfo)
+        setProduct(res.data)
+        navigate('/shoppingbag')
+      } else {
+        navigate('/useronly')
+      }
     } catch (err) {
       setIsError(true)
     }

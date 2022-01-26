@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { isAuthenticated, removeToken, removeUserId } from '../lib/auth'
+import { setSearchValueLocalStorage } from '../lib/search'
 
 function Nav() {
   const [isUserMenuOpen, setUserMenuOpen] = React.useState(false)
@@ -10,6 +11,7 @@ function Nav() {
   const [isSearchBarOpen, setIsSearchBarOpen] = React.useState(false)
   const navigate = useNavigate()
   const isAuth = isAuthenticated()
+  const [searchValue, setSearchValue] = React.useState('')
 
   const handleHomeClick = () => {
     navigate('/')
@@ -20,12 +22,20 @@ function Nav() {
   }
   
   const handleWishlistClick = () => {
-    navigate('/wishlist')
+    if (isAuth) {
+      navigate('/wishlist')
+    } else {
+      navigate('/useronly')
+    }
     setisWishListOpen(false)
   }
 
   const handleShoppingBagClick = () => {
-    navigate('/shoppingbag')
+    if (isAuth) {
+      navigate('/shoppingbag')
+    } else {
+      navigate('/useronly')
+    }
     setisShoppingBagMenuOpen(false)
   }
 
@@ -67,6 +77,17 @@ function Nav() {
   const handleLogin = () => {
     setUserMenuOpen(false)
     navigate('/login')
+  }
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value)
+  }
+
+  const handleSubmit = (e) => {
+    if (e.key === 'Enter') {
+      setSearchValueLocalStorage(searchValue)
+      navigate('/shop')
+    }
   }
 
   return (
@@ -136,7 +157,12 @@ function Nav() {
       {isSearchBarOpen &&
       <div className='drop-down-nav'>
         <div className="nav-drop-down nav-secondary-icon">
-          <p>Search</p>
+          <input 
+            type='search' 
+            placeholder='Search'
+            onChange={handleSearch}
+            onKeyPress={handleSubmit}
+          />
         </div>
       </div>}
     </nav>

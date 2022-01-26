@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
 import { getAllProducts } from '../lib/api'
+import { getSearchValueLocalStorage } from '../lib/search'
 
 function ProductIndex() {
   const [products, setProducts] = React.useState([])
@@ -48,6 +49,9 @@ function ProductIndex() {
 
   const filteredClothing = () => {
     return products.filter(product => {
+      if (getSearchValueLocalStorage()) {
+        return product.designer.toLowerCase() === getSearchValueLocalStorage()
+      }
       return product.type === selectedType || selectedType === 'All'
     })
   }
