@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import { getAllProducts } from '../lib/api'
 import Error from '../common/Error'
@@ -76,8 +77,10 @@ function Home() {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
-            <img src={product.image} id={product.id}/>
-            {isHovering && whatProductHovering === String(product.id) ? <p>{product.designer}</p> : <p>{product.name}</p>}
+            <Link key={product.id} to={`/shop/${product.id}`}>
+              <img src={product.image} id={product.id}/>
+              {isHovering && whatProductHovering === String(product.id) ? <p>{product.designer}</p> : <p>{product.name}</p>}
+            </Link>
           </div>
         ))}
       </div>

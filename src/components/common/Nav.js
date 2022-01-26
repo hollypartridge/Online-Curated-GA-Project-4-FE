@@ -1,101 +1,75 @@
-import React from 'react';
-import { useNavigate, createSearchParams } from 'react-router-dom';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import { isAuthenticated, removeToken, removeUserId } from '../lib/auth';
-// import { setSearchValueLocalStorage } from '../lib/search';
+import { isAuthenticated, removeToken, removeUserId } from '../lib/auth'
 
 function Nav() {
-  const [isUserMenuOpen, setUserMenuOpen] = React.useState(false);
+  const [isUserMenuOpen, setUserMenuOpen] = React.useState(false)
   const [isShoppingBagMenuOpen, setisShoppingBagMenuOpen] =
-    React.useState(false);
-  const [isWishListOpen, setisWishListOpen] = React.useState(false);
-  const [isSearchBarOpen, setIsSearchBarOpen] = React.useState(false);
-  const navigate = useNavigate();
-  const isAuth = isAuthenticated();
-  const [searchValue, setSearchValue] = React.useState('');
+    React.useState(false)
+  const [isWishListOpen, setisWishListOpen] = React.useState(false)
+  const navigate = useNavigate()
+  const isAuth = isAuthenticated()
 
   const handleHomeClick = () => {
-    navigate('/');
-  };
+    navigate('/')
+  }
 
   const handleShopClick = () => {
-    navigate('/shop');
-  };
+    navigate('/shop')
+  }
 
   const handleWishlistClick = () => {
     if (isAuth) {
-      navigate('/wishlist');
+      navigate('/wishlist')
     } else {
-      navigate('/useronly');
+      navigate('/useronly')
     }
-    setisWishListOpen(false);
-  };
+    setisWishListOpen(false)
+  }
 
   const handleShoppingBagClick = () => {
     if (isAuth) {
-      navigate('/shoppingbag');
+      navigate('/shoppingbag')
     } else {
-      navigate('/useronly');
+      navigate('/useronly')
     }
-    setisShoppingBagMenuOpen(false);
-  };
+    setisShoppingBagMenuOpen(false)
+  }
 
   const handleUserMenu = () => {
-    setUserMenuOpen(!isUserMenuOpen);
-    setisShoppingBagMenuOpen(false);
-    setisWishListOpen(false);
-    setIsSearchBarOpen(false);
-  };
+    setUserMenuOpen(!isUserMenuOpen)
+    setisShoppingBagMenuOpen(false)
+    setisWishListOpen(false)
+  }
 
   const handleShoppingBagMenu = () => {
-    setisShoppingBagMenuOpen(!isShoppingBagMenuOpen);
-    setUserMenuOpen(false);
-    setisWishListOpen(false);
-    setIsSearchBarOpen(false);
-  };
+    setisShoppingBagMenuOpen(!isShoppingBagMenuOpen)
+    setUserMenuOpen(false)
+    setisWishListOpen(false)
+  }
 
   const handleWishListMenu = () => {
-    setisWishListOpen(!isWishListOpen);
-    setisShoppingBagMenuOpen(false);
-    setUserMenuOpen(false);
-    setIsSearchBarOpen(false);
-  };
+    setisWishListOpen(!isWishListOpen)
+    setisShoppingBagMenuOpen(false)
+    setUserMenuOpen(false)
+  }
 
   const handleSearchBarMenu = () => {
-    setIsSearchBarOpen(!isSearchBarOpen);
-    setisShoppingBagMenuOpen(false);
-    setUserMenuOpen(false);
-    setisWishListOpen(false);
-  };
+    navigate('/search')
+  }
 
   const handleLogout = () => {
-    setUserMenuOpen(false);
-    removeToken();
-    removeUserId();
-    navigate('/');
-  };
+    setUserMenuOpen(false)
+    removeToken()
+    removeUserId()
+    navigate('/')
+  }
 
   const handleLogin = () => {
-    setUserMenuOpen(false);
-    navigate('/login');
-  };
-
-  const handleSearch = (e) => {
-    setSearchValue(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    if (e.key === 'Enter') {
-      // setSearchValueLocalStorage(searchValue)
-      setIsSearchBarOpen(false);
-      navigate({
-        pathname: '/search',
-        search: `?${createSearchParams({
-          search: searchValue,
-        })}`,
-      });
-    }
-  };
+    setUserMenuOpen(false)
+    navigate('/login')
+  }
 
   return (
     <nav>
@@ -158,20 +132,8 @@ function Nav() {
           </div>
         </div>
       )}
-      {isSearchBarOpen && (
-        <div className="drop-down-nav">
-          <div className="nav-drop-down nav-secondary-icon">
-            <input
-              type="search"
-              placeholder="Search by designer..."
-              onChange={handleSearch}
-              onKeyPress={handleSubmit}
-            />
-          </div>
-        </div>
-      )}
     </nav>
-  );
+  )
 }
 
-export default Nav;
+export default Nav
