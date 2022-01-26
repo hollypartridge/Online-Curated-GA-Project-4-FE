@@ -86,7 +86,8 @@ function Nav() {
   const handleSubmit = (e) => {
     if (e.key === 'Enter') {
       setSearchValueLocalStorage(searchValue)
-      navigate('/shop')
+      setIsSearchBarOpen(false)
+      navigate('/search')
     }
   }
 
@@ -159,7 +160,7 @@ function Nav() {
         <div className="nav-drop-down nav-secondary-icon">
           <input 
             type='search' 
-            placeholder='Search'
+            placeholder='Search by designer...'
             onChange={handleSearch}
             onKeyPress={handleSubmit}
           />

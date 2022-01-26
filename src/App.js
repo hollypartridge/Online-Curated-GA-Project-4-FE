@@ -9,6 +9,7 @@ import ProductShow from './components/products/ProductShow'
 import ShoppingBag from './components/products/ShoppingBag'
 import Wishlist from './components/products/Wishlist'
 import SecureRoute from './components/common/SecureRoute'
+import SearchResults from './components/products/SearchResults'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path = "/shop/:productId" element = {<ProductShow />} />
         <Route path = "/register" element = {<Register />} />
         <Route path = "/login" element = {<Login />} />
+        <Route path = "/search" element = {<SearchResults />} />
         <Route 
           path = "/wishlist" 
           element = {
