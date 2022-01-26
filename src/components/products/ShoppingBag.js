@@ -1,17 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { getUserProfile, headers } from '../lib/api'
+import { addToWishlist, getUserProfile, removeFromShoppingBag } from '../lib/api'
 import Loading from '../common/Loading'
 import Error from '../common/Error'
-import { getUserId } from '../lib/auth'
+import { getUserId, isAuthenticated } from '../lib/auth'
 
 function ShoppingBag() {
   const [productsInShoppingBag, setProductsInShoppingBag] = React.useState([])
   const [isError, setIsError] = React.useState(false)
   const isLoading = !isError && !productsInShoppingBag
   const [productId, setProductId] = React.useState(null)
+  const isAuth = isAuthenticated()
+  const navigate = useNavigate()
+
+  const productInteractionInfo = {
+    product: productId,
+    owner: getUserId(),
+  }
 
   React.useEffect(() => {
     const getData = async () => {
@@ -33,8 +39,21 @@ function ShoppingBag() {
 
   const handleRemoveFromShoppingBag = async (e) => {
     try {
-      const res = axios.delete(`/api/products/${productId}/shoppingbag/${e.target.id}/`, headers())
-      console.log(res)
+      await removeFromShoppingBag(productId, e)
+    } catch (err) {
+      setIsError(true)
+    }
+  }
+
+  const handleMoveToWishList = async (e) => {
+    try {
+      if (isAuth) {
+        await removeFromShoppingBag(productId, e)
+        await addToWishlist(productId, productInteractionInfo)
+        navigate('/wishlist')
+      } else {
+        navigate('/login')
+      }
     } catch (err) {
       setIsError(true)
     }
@@ -62,7 +81,11 @@ function ShoppingBag() {
                 <p>{product.product.name}</p>
                 <p>£{product.product.price}</p>
               </Link>
-              <button>Move To WishList</button>
+              <button
+                onClick={handleMoveToWishList}
+                id={product.id}
+              >
+                Move To WishList</button>
               <button 
                 onClick={handleRemoveFromShoppingBag}
                 id={product.id}

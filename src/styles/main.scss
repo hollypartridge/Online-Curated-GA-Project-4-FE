@@ -57,9 +57,11 @@ body {
 
 .home-page-first-section {
   display: flex;
+  margin: 0px;
 }
 
 .home-page-split-left {
+  margin: 0px;
   width: 50%;
   img {
     width: 100%;
@@ -75,6 +77,19 @@ body {
   width: 50%;
   img {
     width: 50%;
+  }
+}
+
+.home-page-second-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.featured-products {
+  width: 20%;
+  img {
+    width: 100%;
   }
 }
 

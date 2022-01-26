@@ -36,8 +36,8 @@ export function addToShoppingBag(productId, productInteractionInfo) {
   return axios.post(`/api/products/${productId}/shoppingbag/`, productInteractionInfo, headers())
 }
 
-export function removeFromShoppingBag(productId, shoppingbagId) {
-  return axios.delete(`/api/products/${productId}/shoppingbag/${shoppingbagId}/`, headers())
+export function removeFromShoppingBag(productId, e) {
+  return axios.delete(`/api/products/${productId}/shoppingbag/${e.target.id}/`, headers())
 }
 
 // * Auth Requests
