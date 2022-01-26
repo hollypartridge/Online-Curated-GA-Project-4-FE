@@ -30,8 +30,6 @@ function SearchResults() {
   const filteredProducts = products.filter(product => {
     if (keyword === '') {
       return product
-    } else if (product.designer.toLowerCase().includes(keyword.toLowerCase())) {
-      return product
     } else if (product.name.toLowerCase().includes(keyword.toLowerCase())) {
       return product
     }
@@ -41,7 +39,7 @@ function SearchResults() {
     <>
       <div>
         <input 
-          placeholder='Search by designer or product...'
+          placeholder='Search by product name...'
           onChange={handleSearch}
         />
       </div>

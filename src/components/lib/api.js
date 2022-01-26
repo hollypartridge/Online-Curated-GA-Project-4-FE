@@ -26,8 +26,12 @@ export function addToWishlist(productId, productInteractionInfo) {
   return axios.post(`/api/products/${productId}/wishlist/`, productInteractionInfo, headers())
 }
 
-export function removeFromWishlist(productId, wishlistId) {
+export function removeFromWishlistShow(productId, wishlistId) {
   return axios.delete(`/api/products/${productId}/wishlist/${wishlistId}/`, headers())
+}
+
+export function removeFromWishlist(productId, e) {
+  return axios.delete(`/api/products/${productId}/wishlist/${e.target.id}/`, headers())
 }
 
 // * Shopping Bag Requests
@@ -38,6 +42,16 @@ export function addToShoppingBag(productId, productInteractionInfo) {
 
 export function removeFromShoppingBag(productId, e) {
   return axios.delete(`/api/products/${productId}/shoppingbag/${e.target.id}/`, headers())
+}
+
+// * Wardrobe Requests
+
+export function addToWardrobe(productId, productInteractionInfo) {
+  return axios.post(`/api/products/${productId}/wardrobe/`, productInteractionInfo, headers())
+}
+
+export function removeFromWardrobe(productId, e) {
+  return axios.delete(`/api/products/${productId}/wardrobe/${e.target.id}/`, headers())
 }
 
 // * Auth Requests

@@ -37,6 +37,15 @@ function Nav() {
     setisShoppingBagMenuOpen(false)
   }
 
+  const handleWardrobeClick = () => {
+    if (isAuth) {
+      navigate('/wardrobe')
+    } else {
+      navigate('/useronly')
+    }
+    setisShoppingBagMenuOpen(false)
+  }
+
   const handleUserMenu = () => {
     setUserMenuOpen(!isUserMenuOpen)
     setisShoppingBagMenuOpen(false)
@@ -83,8 +92,8 @@ function Nav() {
         <div className="nav-about nav-primary-icon">
           <p>About</p>
         </div>
-        <div className="nav-try-me nav-primary-icon">
-          <p>Try Me</p>
+        <div className="nav-try-me nav-primary-icon" onClick={handleWardrobeClick}>
+          <p>Wardrobe</p>
         </div>
         <div className="nav-icons nav-primary-icon">
           <p onClick={handleShoppingBagMenu}>💰</p>

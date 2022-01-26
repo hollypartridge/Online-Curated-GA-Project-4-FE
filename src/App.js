@@ -10,6 +10,7 @@ import ShoppingBag from './components/products/ShoppingBag'
 import Wishlist from './components/products/Wishlist'
 import SecureRoute from './components/common/SecureRoute'
 import SearchResults from './components/products/SearchResults'
+import Wardrobe from './components/products/Wardrobe'
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
           element={
             <SecureRoute>
               <ShoppingBag />
+            </SecureRoute>
+          }
+        />
+        <Route
+          path="/wardrobe"
+          element={
+            <SecureRoute>
+              <Wardrobe />
             </SecureRoute>
           }
         />

@@ -4,14 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { addToWishlist, getUserProfile, removeFromShoppingBag } from '../lib/api'
 import Loading from '../common/Loading'
 import Error from '../common/Error'
-import { getUserId, isAuthenticated } from '../lib/auth'
+import { getUserId } from '../lib/auth'
 
 function ShoppingBag() {
   const [productsInShoppingBag, setProductsInShoppingBag] = React.useState([])
   const [isError, setIsError] = React.useState(false)
   const isLoading = !isError && !productsInShoppingBag
   const [productId, setProductId] = React.useState(null)
-  const isAuth = isAuthenticated()
   const navigate = useNavigate()
   const [totalPrice, setTotalPrice] = React.useState(null)
 
@@ -63,13 +62,9 @@ function ShoppingBag() {
 
   const handleMoveToWishList = async (e) => {
     try {
-      if (isAuth) {
-        await removeFromShoppingBag(productId, e)
-        await addToWishlist(productId, productInteractionInfo)
-        navigate('/wishlist')
-      } else {
-        navigate('/login')
-      }
+      await removeFromShoppingBag(productId, e)
+      await addToWishlist(productId, productInteractionInfo)
+      navigate('/wishlist')
     } catch (err) {
       setIsError(true)
     }

@@ -1,7 +1,13 @@
 import React from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { addToWishlist, getSingleProduct, removeFromWishlist, addToShoppingBag, removeFromShoppingBag } from '../lib/api'
+import { 
+  addToWishlist, 
+  getSingleProduct, 
+  removeFromWishlistShow, 
+  addToShoppingBag, 
+  addToWardrobe 
+} from '../lib/api'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
 import { getUserId, isAuthenticated } from '../lib/auth'
@@ -16,7 +22,7 @@ function ProductShow() {
   const [wishlistId, setWishlistId] = React.useState(null)
   const isAuth = isAuthenticated()
   const [isInShoppingBag, setIsInShoppingBag] = React.useState(false)
-  const [shoppingbagId, setShoppingBagId] = React.useState(null)
+  const [isInWardrobe, setIsInWardrobe] = React.useState(false)
 
   const productInteractionInfo = {
     product: productId,
@@ -36,15 +42,13 @@ function ProductShow() {
         if (usersWhoHaveInShoppingBag.includes(String(getUserId()))) {
           setIsInShoppingBag(true)
         } 
+        const usersWhoHaveInWardrobe = res.data.inWardrobeOf.map(wishlist => String(wishlist.owner.id))
+        if (usersWhoHaveInWardrobe.includes(String(getUserId()))) {
+          setIsInWardrobe(true)
+        } 
         res.data.wishlistedBy.filter(wishlist => {
           if (String(wishlist.owner.id) === getUserId()) {
             setWishlistId(wishlist.id)
-          }
-          return 
-        })
-        res.data.inShoppingBagOf.filter(shoppingbag => {
-          if (String(shoppingbag.owner.id) === getUserId()) {
-            setShoppingBagId(shoppingbag.id)
           }
           return 
         })
@@ -71,7 +75,7 @@ function ProductShow() {
 
   const handleRemoveFromWishlist = async () => {
     try {
-      await removeFromWishlist(productId, wishlistId)
+      await removeFromWishlistShow(productId, wishlistId)
       setIsWishListed(false)
     } catch (err) {
       setIsError(true)
@@ -92,10 +96,23 @@ function ProductShow() {
     }
   }
 
-  const handleRemoveFromShoppingBag = async () => {
+  const handleAddedToBag = () => {
+    navigate('/shoppingbag')
+  }
+
+  const handleAddedToWardrobe = () => {
+    navigate('/wardrobe')
+  }
+
+  const handleAddToWardrobe = async () => {
     try {
-      await removeFromShoppingBag(productId, shoppingbagId)
-      setIsInShoppingBag(false)
+      if (isAuth) {
+        const res = await addToWardrobe(productId, productInteractionInfo)
+        setProduct(res.data)
+        navigate('/wardrobe')
+      } else {
+        navigate('/useronly')
+      }
     } catch (err) {
       setIsError(true)
     }
@@ -113,7 +130,7 @@ function ProductShow() {
         <p>{product.price}</p>
         <p>{product.description}</p>
         {isInShoppingBag ? 
-          <button onClick={handleRemoveFromShoppingBag}>Remove From Shopping Bag</button>
+          <button onClick={handleAddedToBag}>Added To Bag</button>
           :
           <button onClick={handleAddToShoppingBag}>Buy Now</button>
         }
@@ -122,7 +139,11 @@ function ProductShow() {
           :
           <button onClick={handleAddToWishList}>Add To Wishlist</button>
         }
-        <button>Try Me</button>
+        {isInWardrobe ? 
+          <button onClick={handleAddedToWardrobe}>Added To Wardrobe</button>
+          :
+          <button onClick={handleAddToWardrobe}>Try Me</button>
+        }
       </div>}
     </>
   )
