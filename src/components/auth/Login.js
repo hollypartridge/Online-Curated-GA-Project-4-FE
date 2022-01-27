@@ -30,36 +30,39 @@ function Login() {
   }
 
   return (
-    <div>
-      <p>Login</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email"></label>
-          <input 
-            placeholder="Email" 
-            name="email"
-            id="email"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password"></label>
-          <input 
-            placeholder="Password" 
-            name="password"
-            id="password"
-            type="password"
-            onChange={handleChange}
-          />
-        </div>
-        {isError && 
-          <p>Email or Password were incorrect</p> 
-        }
-        <div>
-          <button>Sign In</button>
-          <Link to='/register'><p>Create an account</p></Link>
-        </div>
-      </form>
+    <div className='form'>
+      <div className='form-div'>
+        <p className='show-title'>Login</p>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email"></label>
+            <input 
+              placeholder="Email" 
+              name="email"
+              id="email"
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="password"></label>
+            <input 
+              placeholder="Password" 
+              name="password"
+              id="password"
+              type="password"
+              onChange={handleChange}
+            />
+          </div>
+          {isError && 
+          <p className='account-p'>Email or Password were incorrect</p> 
+          }
+          <div className='account-p'>
+            <button>Sign In</button>
+            <p>Dont have an account?</p>
+            <Link to='/register'><p className='register'>Create an account</p></Link>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

@@ -48,6 +48,18 @@ function Home() {
 
   return (
     <>
+      <div className='banner-div'>
+        <div className='banner-text-right-to-left'>
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+          .｡.:*☆ NEW IN  ☆.｡.:*
+        </div>
+      </div>
       <div className="home-page-first-section">
         <div className="home-page-split-left">
           <img src="https://i.imgur.com/Q6Py7E4.jpg" />
@@ -67,6 +79,16 @@ function Home() {
           <p onClick={handleClick}>Click Me 🦋</p>
         </div>
       </div>
+      <div className='banner-div'>
+        <div className='banner-text-left-to-right'>
+          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+        </div>
+      </div>
       <div className='home-page-second-section'>
         {isError && <Error />}
         {isLoading && <Loading />}
@@ -79,19 +101,27 @@ function Home() {
           >
             <Link key={product.id} to={`/shop/${product.id}`}>
               <img src={product.image} id={product.id}/>
-              {isHovering && whatProductHovering === String(product.id) ? <p>{product.designer}</p> : <p>{product.name}</p>}
+              {isHovering && whatProductHovering === String(product.id) ? 
+                <button className='product-name'>
+                  {product.name}</button> 
+                : 
+                <button className='hidden-product-name'>
+                  {product.name}</button>
+              }
             </Link>
           </div>
         ))}
       </div>
-      {/* <div className='home-page-third-section'>
-        <div className='home-page-third-right'>
-          <img src='https://i.imgur.com/xAhZViM.jpg' />
+      <div className='banner-div'>
+        <div className='banner-text-right-to-left'>
+          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
+          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
+          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
+          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
+          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
+          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
         </div>
-        <div className='home-page-third-left'>
-          <img src='https://i.imgur.com/SWnEvGL.jpg' />
-        </div>
-      </div> */}
+      </div>
     </>
   )
 }

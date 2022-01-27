@@ -77,12 +77,13 @@ body {
 
 .home-page-first-section {
   display: flex;
-  margin: 0px;
 }
 
 .home-page-split-left {
   margin: 0px;
   width: 50%;
+  display: flex;
+  justify-content: center;
   img {
     width: 100%;
     margin: 0px;
@@ -95,6 +96,7 @@ body {
   justify-content: center;
   flex-direction: column;
   width: 50%;
+  margin: 0%;
   img {
     width: 50%;
   }
@@ -107,9 +109,24 @@ body {
 }
 
 .featured-products {
-  width: 20%;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 19.9%;
   img {
-    width: 100%;
+    width: 90%;
+    padding: 20px 10px;
+    &:hover {
+      opacity: 50%;
+    }
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  p {
+    font-size: 14px;
+    margin: 0px 0px 10px 10px;
   }
 }
 
@@ -129,6 +146,21 @@ body {
   img {
     width: 100%;
   }
+}
+
+.featured-products {
+  button {
+    font-size: 14px;
+    margin: 0px 0px 10px 10px;
+    border: 1px solid black;
+    background-color: transparent;
+    padding: 4px 8px;
+    border-radius: 15px;
+  }
+}
+
+.hidden-product-name {
+  visibility: hidden;
 }
 
 //  * Index Page
@@ -519,4 +551,106 @@ body {
       margin: 0px;
     }
   }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  .form-div {
+    border: 1px solid black;
+    padding: 80px;
+    font-size: 15px;
+    text-align: center;
+  }
+  input {
+    padding: 3px 5px;
+    margin: 5px 0px;
+  }
+  button {
+    margin: 15px 0px 15px 0px;
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+  a {
+    text-decoration: underline;
+    color: black;
+    &:hover {
+      color: blue;
+    }
+  }
+}
+
+.account-p {
+  font-size: 13px;
+  p {
+    margin: 0px;
+  }
+}
+
+.error {
+  font-size: 13px;
+  margin: 5px 0px 0px 0px;
+}
+
+.user-only-p {
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+.register-div {
+  border: 1px solid black;
+  padding: 40px 80px;
+  font-size: 15px;
+  text-align: center;
+}
+
+// * Banner
+
+.banner-div {
+  font-size: 13px;
+  background-color: black;
+  margin: 0px;
+  padding: 3px;
+}
+
+// * Right To Left
+
+.banner-text-right-to-left {
+  margin: 0px;
+  color: white;
+  animation: right-to-left 50s linear infinite;
+}
+
+@keyframes right-to-left {
+from {
+  transform: translateX(100%);
+}
+to {
+  transform: translateX(-100%);
+}
+}
+
+// * Left To Right
+
+.banner-text-left-to-right {
+  margin: 0px;
+  color: white;
+  animation: left-to-right 50s linear infinite;
+}
+
+@keyframes left-to-right {
+from {
+  transform: translateX(-100%);
+}
+to {
+  transform: translateX(100%);
+}
 }
