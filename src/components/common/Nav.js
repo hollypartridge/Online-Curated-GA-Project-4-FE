@@ -65,6 +65,9 @@ function Nav() {
   }
 
   const handleSearchBarMenu = () => {
+    setisWishListOpen(false)
+    setisShoppingBagMenuOpen(false)
+    setUserMenuOpen(false)
     navigate('/search')
   }
 
@@ -96,14 +99,16 @@ function Nav() {
           <p>Wardrobe</p>
         </div>
         <div className="nav-icons nav-primary-icon">
-          <p onClick={handleShoppingBagMenu}>💰</p>
-          <p onClick={handleWishListMenu}>🍄</p>
-          <p onClick={handleSearchBarMenu}>H</p>
-          <p onClick={handleUserMenu}>🧚‍♀️</p>
+          <button onClick={handleShoppingBagMenu}>💰</button>
+          <button onClick={handleWishListMenu}>🍄</button>
+          <button onClick={handleSearchBarMenu}>🦋</button>
+          <button onClick={handleUserMenu}>🧚‍♀️</button>
         </div>
       </div>
       {isUserMenuOpen && (
         <div className="drop-down-nav">
+          <div className='left-side-dropdown'>
+          </div>
           {isAuth ? (
             <div
               className="nav-drop-down nav-secondary-icon"
@@ -123,6 +128,8 @@ function Nav() {
       )}
       {isShoppingBagMenuOpen && (
         <div className="drop-down-nav">
+          <div className='left-side-dropdown'>
+          </div>
           <div
             className="nav-drop-down nav-secondary-icon"
             onClick={handleShoppingBagClick}
@@ -133,6 +140,8 @@ function Nav() {
       )}
       {isWishListOpen && (
         <div className="drop-down-nav">
+          <div className='left-side-dropdown'>
+          </div>
           <div
             className="nav-drop-down nav-secondary-icon"
             onClick={handleWishlistClick}

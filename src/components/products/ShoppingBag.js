@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
-import { addToWishlist, getUserProfile, removeFromShoppingBag } from '../lib/api'
+import { getUserProfile, removeFromShoppingBag } from '../lib/api'
 import Loading from '../common/Loading'
 import Error from '../common/Error'
 import { getUserId } from '../lib/auth'
@@ -11,13 +11,7 @@ function ShoppingBag() {
   const [isError, setIsError] = React.useState(false)
   const isLoading = !isError && !productsInShoppingBag
   const [productId, setProductId] = React.useState(null)
-  const navigate = useNavigate()
   const [totalPrice, setTotalPrice] = React.useState(null)
-
-  const productInteractionInfo = {
-    product: productId,
-    owner: getUserId(),
-  }
 
   React.useEffect(() => {
     const getData = async () => {
@@ -60,43 +54,32 @@ function ShoppingBag() {
     }
   }
 
-  const handleMoveToWishList = async (e) => {
-    try {
-      await removeFromShoppingBag(productId, e)
-      await addToWishlist(productId, productInteractionInfo)
-      navigate('/wishlist')
-    } catch (err) {
-      setIsError(true)
-    }
-  }
-
   return (
-    <>
-      <h1>Shopping Bag</h1>
+    <div className='shopping-bag-page'>
+      <div>
+        <h1>Shopping Bag</h1>
+      </div>
       {productsInShoppingBag.length <= 0 ? 
-        <>
+        <div className='no-products'>
           <p>You dont have any products in your shopping bag.</p> 
-          <Link to='/shop'><button>Explore</button></Link>
-        </>
+          <Link to='/shop'><button>Continue Shopping</button></Link>
+        </div>
         :
         <>
-          <div className="index-gallery">
+          <div className="shopping-bag-gallery">
             {isError && <Error />}
             {isLoading && <Loading />}
             {productsInShoppingBag &&
           productsInShoppingBag.map(product => (
-            <div key={product.id} className='gallery'>
-              <Link key={product.product.id} to={`/shop/${product.product.id}`}>
-                <img src={product.product.image} alt={product.product.name}/>
-                <p>{product.product.designer}</p>
-                <p>{product.product.name}</p>
-                <p>£{product.product.price}</p>
+            <div key={product.id} className='shopping-bag-gallery-individual'>
+              <Link to={`/shop/${product.product.id}`}>
+                <div className='product-info-shopping-bag'>
+                  <img src={product.product.image} alt={product.product.name}/>
+                  <p>{product.product.designer}</p>
+                  <p>{product.product.name}</p>
+                  <p>£{product.product.price}</p>
+                </div>
               </Link>
-              <button
-                onClick={handleMoveToWishList}
-                id={product.id}
-              >
-                Move To WishList</button>
               <button 
                 onClick={handleRemoveFromShoppingBag}
                 id={product.id}
@@ -104,13 +87,14 @@ function ShoppingBag() {
                 Remove</button>
             </div>
           ))}
-          </div>
-          <div>
-            <p>Total Price: £{totalPrice}</p>
-            <button>Checkout</button>
+            <div className='checkout-section'>
+              <p className='total-price'>Total Price: £{totalPrice}</p>
+              <button>Checkout</button>
+              <Link to='/shop'><button>Continue Shopping</button></Link>
+            </div>
           </div>
         </>}
-    </>
+    </div>
   )
 }
 

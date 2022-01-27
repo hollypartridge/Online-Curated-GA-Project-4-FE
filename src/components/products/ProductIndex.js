@@ -59,19 +59,19 @@ function ProductIndex() {
           className='category'
           onClick={handleOpenClothingClick}
         >
-          <p>Clothing</p>
+          <p className='index-title'>Clothing ✨</p>
           {isClothingOpen &&
             <>
-              <p onClick={handleTypeChangeClick}>Coats + Jackets</p>
-              <p onClick={handleTypeChangeClick}>Dresses</p>
-              <p onClick={handleTypeChangeClick}>Jeans</p>
-              <p onClick={handleTypeChangeClick}>Knitwear</p>
-              <p onClick={handleTypeChangeClick}>Shorts</p>
-              <p onClick={handleTypeChangeClick}>Skirts</p>
-              <p onClick={handleTypeChangeClick}>Sweatshirt</p>
-              <p onClick={handleTypeChangeClick}>T-shirts</p>
-              <p onClick={handleTypeChangeClick}>Trackpants</p>
-              <p onClick={handleTypeChangeClick}>Trousers</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Coats + Jackets</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Dresses</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Jeans</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Knitwear</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Shorts</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Skirts</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Sweatshirt</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>T-shirts</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Trackpants</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Trousers</p>
             </>
           }
         </div>
@@ -79,17 +79,17 @@ function ProductIndex() {
           className='category'
           onClick={handleOpenAccessoriesClick}
         >
-          <p>Accessories</p>
+          <p className='index-title'>Accessories 🧸</p>
           {isAccessoriesgOpen &&
             <>
-              <p onClick={handleTypeChangeClick}>Bags</p>
-              <p onClick={handleTypeChangeClick}>Gloves</p>
-              <p onClick={handleTypeChangeClick}>Hair</p>
-              <p onClick={handleTypeChangeClick}>Hats</p>
-              <p onClick={handleTypeChangeClick}>Jewellery</p>
-              <p onClick={handleTypeChangeClick}>Socks</p>
-              <p onClick={handleTypeChangeClick}>Sunglasses</p>
-              <p onClick={handleTypeChangeClick}>Tights</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Bags</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Gloves</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Hair</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Hats</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Jewellery</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Socks</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Sunglasses</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Tights</p>
             </>
           }
         </div>
@@ -97,13 +97,13 @@ function ProductIndex() {
           className='category'
           onClick={handleOpenShoesClick}
         >
-          <p>Shoes</p>
+          <p className='index-title'>Shoes 🩰</p>
           {isShoesOpen &&
             <>
-              <p onClick={handleTypeChangeClick}>Boots</p>
-              <p onClick={handleTypeChangeClick}>Flats</p>
-              <p onClick={handleTypeChangeClick}>Heels</p>
-              <p onClick={handleTypeChangeClick}>Trainers</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Boots</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Flats</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Heels</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Trainers</p>
             </>
           }
         </div>
@@ -111,12 +111,12 @@ function ProductIndex() {
           className='category'
           onClick={handleOpenBeautyClick}
         >
-          <p>Beauty + Lifestyle</p>
+          <p className='index-title'>Beauty + Lifestyle 🕸</p>
           {isBeautyOpen &&
             <>
-              <p onClick={handleTypeChangeClick}>Home</p>
-              <p onClick={handleTypeChangeClick}>Makeup</p>
-              <p onClick={handleTypeChangeClick}>Skincare</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Home</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Makeup</p>
+              <p className='index-options' onClick={handleTypeChangeClick}>Skincare</p>
             </>
           }
         </div>
@@ -129,8 +129,8 @@ function ProductIndex() {
             <div key={product.id} className='gallery'>
               <Link key={product.id} to={`/shop/${product.id}`}>
                 <img src={product.image} alt={product.name}/>
-                <p>{product.designer}</p>
                 <p>{product.name}</p>
+                <p>{product.designer}</p>
                 <p>£{product.price}</p>
               </Link>
             </div>

@@ -36,17 +36,23 @@ function SearchResults() {
   })
 
   return (
-    <>
-      <div>
+    <>  <div className="drop-down-nav">
+      <div className='left-side-dropdown'>
+      </div>
+      <div
+        className="nav-drop-down search-icon"
+      >
         <input 
           placeholder='Search by product name...'
           onChange={handleSearch}
+          className='search-bar'
         />
       </div>
-      <div className="index-gallery">
-        {isError && <Error />}
-        {isLoading && <Loading />}
-        {products &&
+    </div>
+    <div className="search-gallery">
+      {isError && <Error />}
+      {isLoading && <Loading />}
+      {products &&
         filteredProducts.map((product) => (
           <div key={product.id} className="gallery">
             <Link key={product.id} to={`/shop/${product.id}`}>
@@ -57,7 +63,8 @@ function SearchResults() {
             </Link>
           </div>
         ))}
-      </div>
+      {filteredProducts <= 0 && <p>No search results 😢</p>}
+    </div>
     </>
   )
 }

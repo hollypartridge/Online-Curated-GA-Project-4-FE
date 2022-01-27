@@ -1,12 +1,13 @@
 import React from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 
 import { 
   addToWishlist, 
   getSingleProduct, 
   removeFromWishlistShow, 
   addToShoppingBag, 
-  addToWardrobe 
+  addToWardrobe, 
+  getAllProducts
 } from '../lib/api'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
@@ -15,6 +16,7 @@ import { getUserId, isAuthenticated } from '../lib/auth'
 function ProductShow() {
   const { productId } = useParams()
   const [product, setProduct] = React.useState([])
+  const [products, setProducts] = React.useState([])
   const [isError, setIsError] = React.useState(false)
   const isLoading = !product && !isError
   const navigate = useNavigate()
@@ -23,6 +25,8 @@ function ProductShow() {
   const isAuth = isAuthenticated()
   const [isInShoppingBag, setIsInShoppingBag] = React.useState(false)
   const [isInWardrobe, setIsInWardrobe] = React.useState(false)
+  const [designer, setDesigner] = React.useState(null)
+  const [newDescription, setNewDescription] = React.useState(null)
 
   const productInteractionInfo = {
     product: productId,
@@ -34,6 +38,10 @@ function ProductShow() {
       try {
         const res = await getSingleProduct(productId)
         setProduct(res.data)
+        setDesigner(res.data.designer)
+        setNewDescription((res.data.description).split('  ').join('\n'))
+        const resAllProducts = await getAllProducts()
+        setProducts(resAllProducts.data)
         const userWhoHaveWishlisted = res.data.wishlistedBy.map(wishlist => String(wishlist.owner.id))
         if (userWhoHaveWishlisted.includes(String(getUserId()))) {
           setIsWishListed(true)
@@ -118,33 +126,88 @@ function ProductShow() {
     }
   }
 
+  const featuredByDesigner = products.filter(product => {
+    return product.designer === designer && String(product.id) !== productId
+  })
+  const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slice(0, 5)
+
   return (
     <>
       {isError && <Error />}
       {isLoading && <Loading />}
       {product &&
       <div>
-        <img src={product.image} />
-        <p>{product.name}</p>
-        <p>{product.designer}</p>
-        <p>{product.price}</p>
-        <p>{product.description}</p>
-        {isInShoppingBag ? 
-          <button onClick={handleAddedToBag}>Added To Bag</button>
-          :
-          <button onClick={handleAddToShoppingBag}>Buy Now</button>
-        }
-        {isWishlisted ? 
-          <button onClick={handleRemoveFromWishlist}>Remove From Wishlist</button>
-          :
-          <button onClick={handleAddToWishList}>Add To Wishlist</button>
-        }
-        {isInWardrobe ? 
-          <button onClick={handleAddedToWardrobe}>Added To Wardrobe</button>
-          :
-          <button onClick={handleAddToWardrobe}>Try Me</button>
-        }
+        <p className='show-routes'>
+          <Link to='/'> Home </Link>  <span className='route-symbol'>&gt;</span>
+          <Link to='/shop'> Shop </Link> <span className='route-symbol'>&gt;</span> 
+          <Link to={`/shop/${product.id}`}> {product.name} </Link>
+        </p>
+        <div className='show-page'>
+          <div className='show-page-img'>
+            <img src={product.image} />
+          </div>
+          <div className='show-page-info'>
+            <div className='name-designer-show'>
+              <p className='show-title'>{product.name}</p>
+              <p>{product.designer}</p>
+            </div>
+            <p>£{product.price}</p>
+            <p className='index-title'>Description</p>
+            <p id='description'>{newDescription}</p>
+            {isInShoppingBag ? 
+              <button 
+                onClick={handleAddedToBag}
+                className='active-buttons shopping-bag-button added-to-buttons'
+              >Added To Bag</button>
+              :
+              <button 
+                onClick={handleAddToShoppingBag}
+                className='shopping-bag-button not-clicked-button-show'
+              >Buy Now</button>
+            }
+            {isInWardrobe ? 
+              <button 
+                onClick={handleAddedToWardrobe}
+                className='active-buttons wishlist-wardrobe-buttons added-to-buttons'
+              >Added To Wardrobe</button>
+              :
+              <button 
+                onClick={handleAddToWardrobe}
+                className='wishlist-wardrobe-buttons not-clicked-button-show'
+              >Try Me</button>
+            }
+            {isWishlisted ? 
+              <button 
+                onClick={handleRemoveFromWishlist}
+                className='active-buttons wishlist-wardrobe-buttons'
+                id='remove-from-wishlist-button'
+              >Remove From Wishlist</button>
+              :
+              <button 
+                onClick={handleAddToWishList}
+                className='wishlist-wardrobe-buttons not-clicked-button-show'
+              >Add To Wishlist</button>
+            }
+          </div>
+        </div>
       </div>}
+      <p className='show-more'>More From {product.designer}... ✨</p>
+      <div className="show-page-second-section">
+        {products && 
+      featuredProducts.map(product => (
+        <div key={product.id} 
+          className='show-featured-products'
+        >
+          <Link 
+            key={product.id} 
+            to={`/shop/${product.id}`}
+          >
+            <img src={product.image} id={product.id}/>
+            <p>{product.name}</p>
+          </Link>
+        </div>
+      ))}
+      </div>
     </>
   )
 }
