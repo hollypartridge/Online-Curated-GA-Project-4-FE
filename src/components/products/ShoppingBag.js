@@ -89,7 +89,7 @@ function ShoppingBag() {
           ))}
             <div className='checkout-section'>
               <p className='total-price'>Total Price: £{totalPrice}</p>
-              <button>Checkout</button>
+              <Link to='/checkout'><button>Checkout</button></Link>
               <Link to='/shop'><button>Continue Shopping</button></Link>
             </div>
           </div>

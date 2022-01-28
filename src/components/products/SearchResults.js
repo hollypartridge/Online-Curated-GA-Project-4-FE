@@ -37,7 +37,7 @@ function SearchResults() {
 
   return (
     <>  <div className="drop-down-nav">
-      <div className='left-side-dropdown'>
+      <div className='left-side-dropdown-search'>
       </div>
       <div
         className="nav-drop-down search-icon"

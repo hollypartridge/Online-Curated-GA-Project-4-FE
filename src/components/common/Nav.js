@@ -19,6 +19,10 @@ function Nav() {
     navigate('/shop')
   }
 
+  const handleAboutClick = () => {
+    navigate('/about')
+  }
+
   const handleWishlistClick = () => {
     if (isAuth) {
       navigate('/wishlist')
@@ -92,7 +96,7 @@ function Nav() {
         <div className="nav-shop nav-primary-icon" onClick={handleShopClick}>
           <p>Shop</p>
         </div>
-        <div className="nav-about nav-primary-icon">
+        <div className="nav-about nav-primary-icon" onClick={handleAboutClick}>
           <p>About</p>
         </div>
         <div className="nav-try-me nav-primary-icon" onClick={handleWardrobeClick}>

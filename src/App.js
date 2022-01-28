@@ -11,6 +11,8 @@ import Wishlist from './components/products/Wishlist'
 import SecureRoute from './components/common/SecureRoute'
 import SearchResults from './components/products/SearchResults'
 import Wardrobe from './components/products/Wardrobe'
+import About from './components/common/About'
+import Checkout from './components/products/Checkout'
 
 function App() {
   return (
@@ -18,6 +20,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/shop" element={<ProductIndex />} />
         <Route path="/shop/:productId" element={<ProductShow />} />
         <Route path="/register" element={<Register />} />
@@ -44,6 +47,14 @@ function App() {
           element={
             <SecureRoute>
               <Wardrobe />
+            </SecureRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <SecureRoute>
+              <Checkout />
             </SecureRoute>
           }
         />

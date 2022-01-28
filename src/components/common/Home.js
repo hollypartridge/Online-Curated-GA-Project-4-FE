@@ -57,7 +57,6 @@ function Home() {
           .｡.:*☆ NEW IN  ☆.｡.:*
           .｡.:*☆ NEW IN  ☆.｡.:*
           .｡.:*☆ NEW IN  ☆.｡.:*
-          .｡.:*☆ NEW IN  ☆.｡.:*
         </div>
       </div>
       <div className="home-page-first-section">
@@ -80,8 +79,7 @@ function Home() {
         </div>
       </div>
       <div className='banner-div'>
-        <div className='banner-text-left-to-right'>
-          .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
+        <div className='banner-text-left-to-right favourites-banner'>
           .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
           .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
           .｡.:*☆ OUR FAVOURITES  ☆.｡.:*
@@ -114,7 +112,6 @@ function Home() {
       </div>
       <div className='banner-div'>
         <div className='banner-text-right-to-left'>
-          .｡.:*☆ ONLINE CURATED  ☆.｡.:*
           .｡.:*☆ ONLINE CURATED  ☆.｡.:*
           .｡.:*☆ ONLINE CURATED  ☆.｡.:*
           .｡.:*☆ ONLINE CURATED  ☆.｡.:*

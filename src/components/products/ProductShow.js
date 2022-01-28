@@ -27,6 +27,8 @@ function ProductShow() {
   const [isInWardrobe, setIsInWardrobe] = React.useState(false)
   const [designer, setDesigner] = React.useState(null)
   const [newDescription, setNewDescription] = React.useState(null)
+  // const [isHovering, setIsHovering] = React.useState(false)
+  // const [whatProductHovering, setWhatProductHovering] = React.useState(null)
 
   const productInteractionInfo = {
     product: productId,
@@ -130,6 +132,15 @@ function ProductShow() {
     return product.designer === designer && String(product.id) !== productId
   })
   const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slice(0, 5)
+
+  // const handleMouseEnter = (e) => {
+  //   setIsHovering(true)
+  //   setWhatProductHovering(e.target.id)
+  // }
+
+  // const handleMouseLeave = () => {
+  //   setIsHovering(false)
+  // }
 
   return (
     <>

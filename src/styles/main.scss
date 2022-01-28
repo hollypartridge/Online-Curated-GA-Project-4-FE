@@ -1,3 +1,7 @@
+$mobile: 600px;
+$tablet: 900px;
+$featured: 980px;
+
 * {
   font-family: 'Open Sans', sans-serif;
 }
@@ -11,11 +15,18 @@ body {
 .primary-nav {
   display: flex;
   justify-content: space-between;
+  @media screen and (max-width:$mobile) {
+    display: block;
+  }
 }
 
 .nav-icons {
   display: flex;
   justify-content: space-around;
+  @media screen and (max-width:$mobile) {
+    margin: 0px 0px;
+    padding: 0px 0px 14px;
+  }
 }
 
 .nav-primary-icon {
@@ -29,6 +40,13 @@ body {
     font-size: 16px;
     cursor: pointer;
   }
+  @media screen and (max-width:$mobile) {
+    width: 100%;
+    border-top: none;
+    button {
+      margin: 14px 0px 0px;
+    }
+  }
 }
 
 .nav-logo, .nav-shop, .nav-about, .nav-try-me {
@@ -38,6 +56,11 @@ body {
     background-color: black;
     color: white;
     cursor: pointer;
+    @media screen and (max-width:$mobile) {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    }
   }
 }
 
@@ -66,17 +89,28 @@ body {
     color: white;
     cursor: pointer;
   }
+  @media screen and (max-width:$mobile) {
+    width: 100%;
+    border-left: none;
+  }
 }
 
 .left-side-dropdown {
   border-bottom: 1px solid black;
   width: 80%;
+  @media screen and (max-width:$mobile) {
+    display: none;
+  }
 }
 
 // * Home Page
 
 .home-page-first-section {
   display: flex;
+  @media screen and (max-width:$featured) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 }
 
 .home-page-split-left {
@@ -88,6 +122,9 @@ body {
     width: 100%;
     margin: 0px;
   }
+  @media screen and (max-width:$featured) {
+    width: 100%;
+  }
 }
 
 .home-page-split-right {
@@ -97,6 +134,10 @@ body {
   flex-direction: column;
   width: 50%;
   margin: 0%;
+  @media screen and (max-width:$featured) {
+    margin: 40px 0px;
+    width: 100%;
+  }
   img {
     width: 50%;
   }
@@ -109,6 +150,7 @@ body {
 }
 
 .featured-products {
+  display: flex;
   border-top: 1px solid black;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
@@ -127,6 +169,9 @@ body {
   p {
     font-size: 14px;
     margin: 0px 0px 10px 10px;
+  }
+  @media screen and (max-width:$featured) {
+    display: none;
   }
 }
 
@@ -167,11 +212,17 @@ body {
 
 .index-page {
   display: flex;
+  @media screen and (max-width:$tablet) {
+    flex-direction: column;
+  }
 }
 
 .filter-left {
   width: 20%;
   overflow: none;
+  @media screen and (max-width:$tablet) {
+    width: 100%;
+  }
 }
 
 .category {
@@ -202,9 +253,16 @@ body {
   justify-content: center;
   width: 80%;
   margin: 40px 0px 0px 0px;
+  @media screen and (max-width:$tablet) {
+    align-items: center;
+    width: 100%;
+  }
   .gallery {
     width: 24%;
     margin: 0px 0px 20px 0px;
+    @media screen and (max-width:$tablet) {
+      width: 250px;
+    }
     &:hover {
       opacity: 50%;
     }
@@ -238,8 +296,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width:$mobile) {
+    flex-direction: column;
+  }
+  @media screen and (max-width:$tablet) {
+    button {
+      display: block;
+      margin: 10px 0px;
+    }
+  }
   img {
     width: 400px;
+    @media screen and (max-width:$mobile) {
+      width: 250px;
+    }
   }
   p {
     font-size: 15px;
@@ -251,6 +321,9 @@ body {
     border: 1px solid black;
     cursor: pointer;
     margin: 0px 1px;
+    @media screen and (max-width:$tablet) {
+      margin: 2px 0px;
+    }
     &:hover {
       background-color: black;
       color: white;
@@ -262,8 +335,7 @@ body {
   background-color: black;
   color: white;
   padding: 5px 10px;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
+  border: 1px solid black;
   cursor: pointer;
   margin: 0px 1px;
 }
@@ -302,6 +374,9 @@ body {
   justify-content: center;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+  @media screen and (max-width:$featured) {
+    display: none;
+  }
 }
 
 .show-featured-products {
@@ -326,6 +401,9 @@ body {
 .show-more {
   margin: 0px 0px 10px 10px;
   font-size: 15px;
+  @media screen and (max-width:$featured) {
+    display: none;
+  }
 }
 
 #description {
@@ -339,7 +417,24 @@ body {
 }
 
 .show-title {
-    font-weight: 600;
+  font-weight: 600;
+}
+
+// * About Page
+
+.about-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.about-para {
+  width: 550px;
+  font-size: 14px;
+  @media screen and (max-width:$mobile) {
+    width: 320px;
+  }
 }
 
 // * Shopping Bag
@@ -375,6 +470,9 @@ body {
     margin: 0px 1px;
     padding: 5px 10px;
     cursor: pointer;
+    @media screen and (max-width:$mobile) {
+      margin: 10px 1px;
+    }
     &:hover {
       background-color: black;
       color: white;
@@ -388,6 +486,9 @@ body {
     width: 100%;
     border-bottom: 1px solid black;
     padding: 10px 0px;
+    @media screen and (max-width:$mobile) {
+      flex-direction: column;
+    }
     a {
       width: 80%;
     }
@@ -396,11 +497,15 @@ body {
       align-items: center;
       justify-content: space-between;
       width: 80%;
+      @media screen and (max-width:$mobile) {
+        flex-direction: column;
+        width: 100%;
+      }
     }
     img {
       width: 100px;
-      &:hover {
-        opacity: 50%;
+      @media screen and (max-width:$mobile) {
+        width: 200px;
       }
     }
     a {
@@ -408,6 +513,9 @@ body {
       color: black;
         &:hover {
           color: blue;
+          img {
+            opacity: 50%;
+          }
         }
     }
     p {
@@ -438,6 +546,10 @@ body {
   margin: 20px 20px 0px 0px;
   border-bottom: 1px solid black;
   padding: 0px 0px 40px 0px;
+  @media screen and (max-width:$mobile) {
+    flex-direction: column;
+    align-items: center;
+  }
   button {
     background-color: transparent;
     border: 1px solid black;
@@ -452,6 +564,9 @@ body {
   .gallery {
     width: 19.5%;
     margin: 0px 0px 0px 0px;
+    @media screen and (max-width:$mobile) {
+      width: 200px;
+    }
     img {
       width: 100%;
     }
@@ -526,6 +641,10 @@ body {
   &::placeholder {
     text-align: center;
   }
+  @media screen and (max-width:$tablet) {
+    width: 100%;
+    border-left: none;
+  }
 }
 
 .search-gallery {
@@ -533,9 +652,16 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   margin: 40px 0px 0px 0px;
+  @media screen and (max-width:$tablet) {
+    align-items: center;
+    width: 100%;
+  }
   .gallery {
     width: 24%;
     margin: 0px 0px 20px 0px;
+    @media screen and (max-width:$tablet) {
+      width: 250px;
+    }
     &:hover {
       opacity: 50%;
     }
@@ -612,6 +738,95 @@ body {
   text-align: center;
 }
 
+// * Checkout
+
+.checkout {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 20px;
+  font-size: 14px;
+  h1 {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0px 0px 10px 0px;
+    margin: 0px;
+  }
+  img {
+    width: 100px;
+  }
+  input, label {
+    margin: 0px 10px 10px 0px;
+  }
+  button {
+    background-color: transparent;
+    border: 1px solid black;
+    margin: 0px 1px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 20px 0px 0px 0px;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+  form {
+    margin: 20px 0px 0px;
+  }
+}
+
+.form-margin-checkout {
+  margin: 20px 0px 0px;
+}
+
+.form-margin-bottom-checkout {
+  margin: 0px 0px 20px;
+}
+
+.checkout-details {
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.checkout-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.checkout-summary {
+  width: 500px;
+  border: 1px solid black;
+  padding: 20px;
+}
+
+.form-type-input {
+  display: flex;
+}
+
+.order-summary-products {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.checkout-prices {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  p {
+    margin: 0px;
+  }
+}
+
+.price-list {
+  margin: 20px 0px;
+  padding: 0px 0px 20px;
+}
+
+.border-bottom {
+  border-bottom: 1px solid black;
+}
+
 // * Banner
 
 .banner-div {
@@ -619,6 +834,15 @@ body {
   background-color: black;
   margin: 0px;
   padding: 3px;
+  @media screen and (max-width:$tablet) {
+    display: none;
+  }
+}
+
+#user-only-banner {
+  @media screen and (max-width:$tablet) {
+    display: block;
+  }
 }
 
 // * Right To Left
@@ -646,6 +870,12 @@ to {
   animation: left-to-right 50s linear infinite;
 }
 
+.favourites-banner {
+  @media screen and (max-width:$featured) {
+    display: none;
+  }
+}
+
 @keyframes left-to-right {
 from {
   transform: translateX(-100%);
@@ -654,3 +884,4 @@ to {
   transform: translateX(100%);
 }
 }
+
