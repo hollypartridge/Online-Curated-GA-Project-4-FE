@@ -27,8 +27,6 @@ function ProductShow() {
   const [isInWardrobe, setIsInWardrobe] = React.useState(false)
   const [designer, setDesigner] = React.useState(null)
   const [newDescription, setNewDescription] = React.useState(null)
-  // const [isHovering, setIsHovering] = React.useState(false)
-  // const [whatProductHovering, setWhatProductHovering] = React.useState(null)
 
   const productInteractionInfo = {
     product: productId,
@@ -47,15 +45,21 @@ function ProductShow() {
         const userWhoHaveWishlisted = res.data.wishlistedBy.map(wishlist => String(wishlist.owner.id))
         if (userWhoHaveWishlisted.includes(String(getUserId()))) {
           setIsWishListed(true)
-        } 
+        } else {
+          setIsWishListed(false)
+        }
         const usersWhoHaveInShoppingBag = res.data.inShoppingBagOf.map(wishlist => String(wishlist.owner.id))
         if (usersWhoHaveInShoppingBag.includes(String(getUserId()))) {
           setIsInShoppingBag(true)
-        } 
+        } else {
+          setIsInShoppingBag(false)
+        }
         const usersWhoHaveInWardrobe = res.data.inWardrobeOf.map(wishlist => String(wishlist.owner.id))
         if (usersWhoHaveInWardrobe.includes(String(getUserId()))) {
           setIsInWardrobe(true)
-        } 
+        } else {
+          setIsInWardrobe(false)
+        }
         res.data.wishlistedBy.filter(wishlist => {
           if (String(wishlist.owner.id) === getUserId()) {
             setWishlistId(wishlist.id)
@@ -132,15 +136,6 @@ function ProductShow() {
     return product.designer === designer && String(product.id) !== productId
   })
   const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slice(0, 5)
-
-  // const handleMouseEnter = (e) => {
-  //   setIsHovering(true)
-  //   setWhatProductHovering(e.target.id)
-  // }
-
-  // const handleMouseLeave = () => {
-  //   setIsHovering(false)
-  // }
 
   return (
     <>
