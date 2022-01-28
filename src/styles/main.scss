@@ -889,3 +889,82 @@ to {
 }
 }
 
+//  * Wardrobe
+
+.wardrobe-page {
+  display: flex;
+  align-items: flex-end;
+  height: 90vh;
+}
+
+.finder {
+  width: 37%;
+  margin: 0px 0px 10px 15px;
+}
+
+.user-display {
+  border: 1px solid black;
+  p {
+    margin: 0px;
+    text-align: center;
+    font-size: 12px;
+    padding: 2px 0px;
+  }
+}
+
+.finder-gallery {
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  text-align: center;
+  height: 250px;
+  overflow-y: scroll;
+  p {
+    margin: 0px;
+    font-size: 12px;
+  }
+}
+
+#no-products-wardrobe {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  button {
+    background-color: transparent;
+    border: 1px solid black;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 10px 0px 0px 0px;
+    font-size: 12px;
+    &:hover {
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+.finder-gallery-with-products {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px 10px;
+  padding: 10px 0px;
+  img {
+    width: 50px;
+  }
+  p {
+    width: 110px;
+  }
+}
+
+.individual-products-wardrobe {
+  margin: 5px 0px;
+  button {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.remove-from-wardrobe {
+  display: none;
+}

@@ -11,12 +11,14 @@ function Wardrobe() {
   const [isError, setIsError] = React.useState(false)
   const isLoading = !isError && !productsInWardrobe
   const [productId, setProductId] = React.useState(null)
+  const [username, setUsername] = React.useState(null)
   
   React.useEffect(() => {
     const getData = async () => {
       try {
         const res = await getUserProfile()
         setProductsInWardrobe(res.data.productsInWardrobe)
+        setUsername(res.data.username)
         res.data.productsInWardrobe.filter(wardrobe => {
           if (String(wardrobe.owner) === getUserId()) {
             setProductId(wardrobe.product.id)
@@ -41,38 +43,46 @@ function Wardrobe() {
   }
 
   return (
-    <>
-      <h1>Wardrobe</h1>
-      {productsInWardrobe.length <= 0 ? 
-        <>
-          <p>You dont have any products in your wardrobe.</p> 
-          <Link to='/shop'><button>Explore</button></Link>
-        </>
-        :
-        <div className="index-gallery">
-          {isError && <Error />}
-          {isLoading && <Loading />}
-          {productsInWardrobe &&
+    <div className='wardrobe-page'>
+      <div className='finder'>
+        <div className='user-display'>
+          <p>{username}</p>
+        </div>
+        <div className='finder-gallery'>
+          {productsInWardrobe.length <= 0 ? 
+            <div id='no-products-wardrobe'>
+              <div>
+                <p>You dont have any products in your wardrobe.</p> 
+                <Link to='/shop'><button className='no-products-wardrobe-button'>Explore</button></Link>
+              </div>
+            </div>
+            :
+            <div className='finder-gallery-with-products'>
+              {isError && <Error />}
+              {isLoading && <Loading />}
+              {productsInWardrobe &&
           productsInWardrobe.map(product => (
-            <>
-              <div key={product.id}>
-                <div className='gallery'>
-                  <img src={product.product.image} alt={product.product.name} />
-                  <p>{product.product.designer}</p>
-                  <p>{product.product.name}</p>
-                </div>
+            <div key={product.id}>
+              <div className='individual-products-wardrobe'>
                 <div>
                   <button
                     onClick={handleRemoveFromWardrobe}
                     id={product.id}
+                    className='remove-from-wardrobe'
                   >
-                Remove</button>
+                X</button>
+                </div>
+                <div>
+                  <img src={product.product.image} alt={product.product.name} />
+                  <p>{product.product.name}</p>
                 </div>
               </div>
-            </>
+            </div>
           ))}
-        </div>}
-    </>
+            </div>}
+        </div>
+      </div>
+    </div>
   )
 }
 
