@@ -75,7 +75,7 @@ function Home() {
               <img id="right-img" src="https://i.imgur.com/cC2eIsp.jpg" />
             </>
           )}
-          <p onClick={handleClick}>Click Me 🦋</p>
+          <p className='click-me' onClick={handleClick}>Click Me 🦋</p>
         </div>
       </div>
       <div className='banner-div'>
