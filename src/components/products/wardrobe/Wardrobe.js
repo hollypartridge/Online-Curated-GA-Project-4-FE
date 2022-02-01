@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDrop } from 'react-dnd'
 
-import { getUserProfile, removeFromWardrobe } from '../lib/api'
-import Error from '../common/Error'
-import Loading from '../common/Loading'
-import { getUserId } from '../lib/auth'
+import { getUserProfile, removeFromWardrobe } from '../../lib/api'
+import Error from '../../common/Error'
+import Loading from '../../common/Loading'
+import { getUserId } from '../../lib/auth'
+import WardrobeItem from './WardrobeItem'
 
 function Wardrobe() {
   const [productsInWardrobe, setProductsInWardrobe] = React.useState([])
@@ -42,6 +44,18 @@ function Wardrobe() {
     }
   }
 
+  const [{ isOver }, drop] = useDrop(() =>({
+    accept: 'product',
+    drop: (item) => addImageToBoard(item.id),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }))
+
+  const addImageToBoard = (id) => {
+    console.log(productsInWardrobe, id)
+  }
+
   return (
     <div className='wardrobe-page'>
       <div className='finder'>
@@ -62,24 +76,34 @@ function Wardrobe() {
               {isLoading && <Loading />}
               {productsInWardrobe &&
           productsInWardrobe.map(product => (
-            <div key={product.id}>
-              <div className='individual-products-wardrobe'>
-                <div>
-                  <button
-                    onClick={handleRemoveFromWardrobe}
-                    id={product.id}
-                    className='remove-from-wardrobe'
-                  >
-                X</button>
-                </div>
-                <div>
-                  <img src={product.product.image} alt={product.product.name} />
-                  <p>{product.product.name}</p>
-                </div>
-              </div>
-            </div>
+            <WardrobeItem 
+              key={product.id}
+              id={product.id}
+              remove={handleRemoveFromWardrobe}
+              img={product.product.image}
+              alt={product.product.alt}
+              name={product.product.name}
+            />
           ))}
             </div>}
+        </div>
+      </div>
+      <div className='try-on-area'>
+        <div className='wardrobe-top-drops'>
+          <div 
+            className='wardrobe-tops wardrobe-drop-zone'
+            style={{ border: isOver && '5px solid pink' }}
+            ref={drop}
+          >
+          </div>
+          <div className='wardrobe-accessories wardrobe-drop-zone'>
+          </div>
+        </div>
+        <div className='wardrobe-bottom-drops'>
+          <div className='wardrobe-bottoms wardrobe-drop-zone'>
+          </div>
+          <div className='wardrobe-shoes wardrobe-drop-zone'>
+          </div>
         </div>
       </div>
     </div>

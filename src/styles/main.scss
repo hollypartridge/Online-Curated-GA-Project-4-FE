@@ -966,13 +966,16 @@ to {
 
 .wardrobe-page {
   display: flex;
-  align-items: flex-end;
+  justify-content: space-between;
   height: 90vh;
 }
 
 .finder {
+  display: flex;
+  flex-direction: column;
   width: 37%;
   margin: 0px 0px 10px 15px;
+  justify-content: flex-end;
 }
 
 .user-display {
@@ -983,6 +986,16 @@ to {
     font-size: 12px;
     padding: 2px 0px;
   }
+}
+
+.try-on-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+  border: 1px dashed black;
+  width: 60%;
 }
 
 .finder-gallery {
@@ -1040,4 +1053,15 @@ to {
 
 .remove-from-wardrobe {
   display: none;
+}
+
+.wardrobe-drop-zone {
+  border: 1px dashed black;
+  width: 200px;
+  height: 200px;
+  margin: 5px;
+}
+
+.wardrobe-top-drops, .wardrobe-bottom-drops {
+  display: flex;
 }

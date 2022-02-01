@@ -1,4 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import UserOnly from './components/auth/UserOnly'
@@ -10,7 +13,7 @@ import ShoppingBag from './components/products/ShoppingBag'
 import Wishlist from './components/products/Wishlist'
 import SecureRoute from './components/common/SecureRoute'
 import SearchResults from './components/products/SearchResults'
-import Wardrobe from './components/products/Wardrobe'
+import Wardrobe from './components/products/wardrobe/Wardrobe'
 import About from './components/common/About'
 import Checkout from './components/products/Checkout'
 import OrderConfirmation from './components/products/OrderConfirmation'
@@ -47,7 +50,9 @@ function App() {
           path="/wardrobe"
           element={
             <SecureRoute>
-              <Wardrobe />
+              <DndProvider backend={HTML5Backend}>
+                <Wardrobe />
+              </DndProvider>
             </SecureRoute>
           }
         />
