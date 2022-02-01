@@ -431,6 +431,9 @@ body {
   justify-content: center;
   align-items: center;
   height: 80vh;
+  a {
+    color: blue;
+  }
 }
 
 .about-para {
@@ -749,6 +752,10 @@ body {
   justify-content: space-around;
   margin: 20px 20px;
   font-size: 14px;
+  @media screen and (max-width:$featured) {
+    flex-direction: column;
+    align-items: center;
+  }
   h1 {
     font-size: 15px;
     font-weight: 600;
@@ -779,16 +786,24 @@ body {
 }
 
 .form-margin-checkout {
-  margin: 20px 0px 0px;
+  margin: 10px 0px 0px;
 }
 
 .form-margin-bottom-checkout {
-  margin: 0px 0px 20px;
+  margin: 0px 0px 10px;
 }
 
 .checkout-details {
   border: 1px solid black;
   padding: 20px;
+  @media screen and (max-width:$featured) {
+    width: 500px;
+    margin: 0px 0px 20px;
+  }
+  @media screen and (max-width:$mobile) {
+    width: 350px;
+    margin: 0px 0px 20px;
+  }
 }
 
 .checkout-button {
@@ -800,6 +815,12 @@ body {
   width: 500px;
   border: 1px solid black;
   padding: 20px;
+  @media screen and (max-width:$featured) {
+    width: 500px;
+  }
+  @media screen and (max-width:$mobile) {
+    width: 350px;
+  }
 }
 
 .form-type-input {
@@ -829,6 +850,58 @@ body {
 
 .border-bottom {
   border-bottom: 1px solid black;
+}
+
+.checkout-error {
+  color: blue;
+  font-size: 14px;
+}
+
+// * Order Confirmation, Errors and Loading
+
+.order-confirm-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  button {
+  background-color: transparent;
+  border: 1px solid black;
+  margin: 0px 1px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 00px 0px 0px 0px;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+  }
+}
+
+.order-para {
+  font-size: 14px;
+}
+
+.error-loading-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+  background-color: transparent;
+  border: 1px solid black;
+  margin: 0px 1px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin: 00px 0px 0px 0px;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+  }
+}
+
+.error-loading-para {
+  font-size: 14px;
 }
 
 // * Banner

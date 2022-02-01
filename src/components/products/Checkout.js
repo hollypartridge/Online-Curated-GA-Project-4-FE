@@ -1,7 +1,17 @@
+import { send } from 'emailjs-com'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+
+import { headers } from '../lib/api'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
 import { getUserProfile } from '../lib/api'
+
+const initialState = {
+  name: '',
+  email: '',
+}
 
 function Checkout() {
   const [productsInShoppingBag, setProductsInShoppingBag] = React.useState([])
@@ -9,6 +19,9 @@ function Checkout() {
   const isLoading = !productsInShoppingBag && !isError
   const [totalPrice, setTotalPrice] = React.useState(null)
   const [shippingPrice, setShippingPrice] = React.useState(0)
+  const [formData, setFormData] = React.useState(initialState)
+  const navigate = useNavigate()
+  const [formErrors, setFormErrors] = React.useState(null)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -42,41 +55,48 @@ function Checkout() {
     setShippingPrice(4)
   }
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    send('service_lluiacm', 'template_zi0rrdr', formData, 'user_1F216DBeTVyQ7ziuSn8T8')
+      .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text)
+        productsInShoppingBag.map(product => {
+          return axios.delete(`/api/products/${product.product.id}/shoppingbag/${product.id}/`, headers())
+        })
+        navigate('/order-confirmation')
+      }, function(error) {
+        setFormErrors(error)
+      })
+  }
+
   return (
     <div className="checkout">
+      {isError && <Error />}
+      {isLoading && <Loading />}
       <div className="checkout-details">
         <h1 className="border-bottom">Checkout</h1>
         <form>
           <h1 className="border-bottom checkout-title">Shipping Details</h1>
+          {formErrors && <p className='checkout-error'>Enter your email to checkout</p>}
           <div className='form-type-input form-margin-checkout'>
-            <div>
-              <label htmlFor="name">Name</label><br/>
+            <div className='form-margin-bottom-checkout'>
+              <label htmlFor="name">First Name</label><br/>
               <input  
                 name="name"
                 id="name"
+                onChange={handleChange}
               />
             </div>
             <div>
-              <label htmlFor="address">Address</label><br/>
+              <label htmlFor="email">Email For Confirmation</label><br/>
               <input 
-                name="address"
-                id="address"
-              />
-            </div>
-          </div>
-          <div className="form-type-input">
-            <div className='form-margin-bottom-checkout'>
-              <label htmlFor="postcode">Postcode</label><br/>
-              <input 
-                name="postcode"
-                id="postcode"
-              />
-            </div>
-            <div>
-              <label htmlFor="phone">Phone</label><br/>
-              <input 
-                name="phone"
-                id="phone"
+                name="email"
+                id="email"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -88,6 +108,7 @@ function Checkout() {
               id='1-2' 
               value='8' 
               onClick={handleRadioExpressShipping} 
+              required
             />
             <label htmlFor="1-2">£8 | 1 - 2 days | Express</label><br/>
             <input 
@@ -103,8 +124,6 @@ function Checkout() {
       </div>
       <div className="checkout-summary">
         <h1 className="border-bottom">Order Summary</h1>
-        {isError && <Error />}
-        {isLoading && <Loading />}
         {productsInShoppingBag && 
         productsInShoppingBag.map(product => (
           <div key={product.id} className='order-summary-products border-bottom'>
@@ -139,7 +158,7 @@ function Checkout() {
             <p>£{totalPrice + shippingPrice}</p>
           </div>
           <div className='checkout-button'>
-            <button>Checkout</button>
+            <button onClick={handleSubmit}>Checkout</button>
           </div>
         </div>
       </div>

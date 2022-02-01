@@ -13,6 +13,7 @@ import SearchResults from './components/products/SearchResults'
 import Wardrobe from './components/products/Wardrobe'
 import About from './components/common/About'
 import Checkout from './components/products/Checkout'
+import OrderConfirmation from './components/products/OrderConfirmation'
 
 function App() {
   return (
@@ -55,6 +56,14 @@ function App() {
           element={
             <SecureRoute>
               <Checkout />
+            </SecureRoute>
+          }
+        />
+        <Route
+          path="/order-confirmation"
+          element={
+            <SecureRoute>
+              <OrderConfirmation />
             </SecureRoute>
           }
         />
