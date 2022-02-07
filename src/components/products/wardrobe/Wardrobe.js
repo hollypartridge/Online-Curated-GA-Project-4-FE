@@ -14,6 +14,7 @@ function Wardrobe() {
   const isLoading = !isError && !productsInWardrobe
   const [productId, setProductId] = React.useState(null)
   const [username, setUsername] = React.useState(null)
+  const [board, setBoard] = React.useState([])
   
   React.useEffect(() => {
     const getData = async () => {
@@ -34,16 +35,6 @@ function Wardrobe() {
     getData()
   }, [])
 
-  const handleRemoveFromWardrobe = async (e) => {
-    try {
-      await removeFromWardrobe(productId, e)
-      const res = await getUserProfile()
-      setProductsInWardrobe(res.data.productsInWardrobe)
-    } catch (err) {
-      setIsError(true)
-    }
-  }
-
   const [{ isOver }, drop] = useDrop(() =>({
     accept: 'product',
     drop: (item) => addImageToBoard(item.id),
@@ -53,7 +44,29 @@ function Wardrobe() {
   }))
 
   const addImageToBoard = (id) => {
-    console.log(productsInWardrobe, id)
+    const getData = async () => {
+      try {
+        const res = await getUserProfile()
+        const wardrobeProducts = res.data.productsInWardrobe
+        const wardrobeList = wardrobeProducts.filter((item) => id === item.id)
+        setBoard((board) => [...board, wardrobeList[0]])
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getData()
+  }
+
+  console.log(board)
+
+  const handleRemoveFromWardrobe = async (e) => {
+    try {
+      await removeFromWardrobe(productId, e)
+      const res = await getUserProfile()
+      setProductsInWardrobe(res.data.productsInWardrobe)
+    } catch (err) {
+      setIsError(true)
+    }
   }
 
   return (
@@ -95,6 +108,11 @@ function Wardrobe() {
             style={{ border: isOver && '5px solid pink' }}
             ref={drop}
           >
+            {board.map(item => (
+              <div key={item.id}>
+                <img src={item.product.image} width='100%'/>
+              </div>
+            ))}
           </div>
           <div className='wardrobe-accessories wardrobe-drop-zone'>
           </div>
