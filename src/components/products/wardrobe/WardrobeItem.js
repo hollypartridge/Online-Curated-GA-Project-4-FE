@@ -1,3 +1,4 @@
+import React from 'react'
 import { useDrag } from 'react-dnd'
 
 function WardrobeItem ({ id, remove, img, alt, name }) {
@@ -10,18 +11,17 @@ function WardrobeItem ({ id, remove, img, alt, name }) {
   }))
 
   return (
-    <div className='individual-products-wardrobe' style={{ border: isDragging ? '1px solid pink' : '0px' }}>
-      <div>
+    <div className='individual-products-wardrobe'>
+      <div className='remove-from-wardrobe'>
         <button
           onClick={remove}
           id={id}
-          className='remove-from-wardrobe'
         >
-      X</button>
+      x</button>
       </div>
-      <div ref={drag}>
+      <div className='wardrobe-items' ref={drag}>
         <img src={img} alt={alt} />
-        <p>{name}</p>
+        <p className={isDragging ? 'dragging-para' : null}>{name}</p>
       </div>
     </div>
   )

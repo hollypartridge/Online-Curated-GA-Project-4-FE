@@ -7,6 +7,7 @@ import Error from '../../common/Error'
 import Loading from '../../common/Loading'
 import { getUserId } from '../../lib/auth'
 import WardrobeItem from './WardrobeItem'
+import Popup from './Popup'
 
 function Wardrobe() {
   const [productsInWardrobe, setProductsInWardrobe] = React.useState([])
@@ -15,6 +16,7 @@ function Wardrobe() {
   const [productId, setProductId] = React.useState(null)
   const [username, setUsername] = React.useState(null)
   const [board, setBoard] = React.useState([])
+  const [isPopupOpen, setIsPopupOpen] = React.useState(false)
   
   React.useEffect(() => {
     const getData = async () => {
@@ -57,8 +59,6 @@ function Wardrobe() {
     getData()
   }
 
-  console.log(board)
-
   const handleRemoveFromWardrobe = async (e) => {
     try {
       await removeFromWardrobe(productId, e)
@@ -69,25 +69,44 @@ function Wardrobe() {
     }
   }
 
+  const handleStartAgain = () => {
+    setBoard([])
+  }
+
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen)
+  }
+
   return (
-    <div className='wardrobe-page'>
-      <div className='finder'>
-        <div className='user-display'>
-          <p>{username}</p>
-        </div>
-        <div className='finder-gallery'>
-          {productsInWardrobe.length <= 0 ? 
-            <div id='no-products-wardrobe'>
-              <div>
-                <p>You dont have any products in your wardrobe.</p> 
-                <Link to='/shop'><button className='no-products-wardrobe-button'>Explore</button></Link>
+    <>
+      <div className='wardrobe-mobile'>
+        <p id='spider-web'>🕸</p>
+        <p>We&#39;re sorry, our wardrobe feature is only available on desktop.</p>
+        <Link to='/shop'><button className='no-products-wardrobe-button'>Back To Shop</button></Link>
+      </div>
+      <div className='wardrobe-page'>
+        {isPopupOpen && 
+      <Popup 
+        handleClose={togglePopup}
+        startAgain={handleStartAgain}
+      />}
+        <div className='finder'>
+          <div className='user-display'>
+            <p>{username}</p>
+          </div>
+          <div className='finder-gallery'>
+            {productsInWardrobe.length <= 0 ? 
+              <div id='no-products-wardrobe'>
+                <div>
+                  <p>You dont have any products in your wardrobe.</p> 
+                  <Link to='/shop'><button className='no-products-wardrobe-button'>Explore</button></Link>
+                </div>
               </div>
-            </div>
-            :
-            <div className='finder-gallery-with-products'>
-              {isError && <Error />}
-              {isLoading && <Loading />}
-              {productsInWardrobe &&
+              :
+              <div className='finder-gallery-with-products'>
+                {isError && <Error />}
+                {isLoading && <Loading />}
+                {productsInWardrobe &&
           productsInWardrobe.map(product => (
             <WardrobeItem 
               key={product.id}
@@ -98,33 +117,32 @@ function Wardrobe() {
               name={product.product.name}
             />
           ))}
-            </div>}
+              </div>}
+          </div>
         </div>
-      </div>
-      <div className='try-on-area'>
-        <div className='wardrobe-top-drops'>
+        <div className='try-on-area' ref={drop} style={{ border: isOver && '1px solid black' }}>
+          <div className='reset'>
+            <button onClick={togglePopup}>How It Works</button>
+          </div>
           <div 
-            className='wardrobe-tops wardrobe-drop-zone'
-            style={{ border: isOver && '5px solid pink' }}
-            ref={drop}
+            className='wardrobe-drop-zone'
           >
-            {board.map(item => (
+            {board.slice(0, 4).map(item => (
               <div key={item.id}>
-                <img src={item.product.image} width='100%'/>
+                <img src={item.product.image} width='225px' />
               </div>
             ))}
           </div>
-          <div className='wardrobe-accessories wardrobe-drop-zone'>
-          </div>
-        </div>
-        <div className='wardrobe-bottom-drops'>
-          <div className='wardrobe-bottoms wardrobe-drop-zone'>
-          </div>
-          <div className='wardrobe-shoes wardrobe-drop-zone'>
+          <div className='reset'>
+            {board.length > 0 && 
+          <>
+            <button onClick={handleStartAgain}>Start Again</button>
+          </>
+            }
           </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
