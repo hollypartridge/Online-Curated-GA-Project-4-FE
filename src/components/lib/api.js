@@ -43,6 +43,10 @@ export function removeFromShoppingBag(productId, e) {
   return axios.delete(`${baseUrl}/products/${productId}/shoppingbag/${e.target.id}/`, headers())
 }
 
+export function removeAllFromShoppingBag(product) {
+  return axios.delete(`${baseUrl}/products/${product.product.id}/shoppingbag/${product.id}/`, headers())
+}
+
 // * Wardrobe Requests
 
 export function addToWardrobe(productId, productInteractionInfo) {

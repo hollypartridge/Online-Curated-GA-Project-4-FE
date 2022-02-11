@@ -1,9 +1,8 @@
 import { send } from 'emailjs-com'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 
-import { headers } from '../lib/api'
+import { removeAllFromShoppingBag } from '../lib/api'
 import Error from '../common/Error'
 import Loading from '../common/Loading'
 import { getUserProfile } from '../lib/api'
@@ -65,7 +64,7 @@ function Checkout() {
       .then(function(response) {
         console.log('SUCCESS!', response.status, response.text)
         productsInShoppingBag.map(product => {
-          return axios.delete(`/api/products/${product.product.id}/shoppingbag/${product.id}/`, headers())
+          return removeAllFromShoppingBag(product)
         })
         navigate('/order-confirmation')
       }, function(error) {
