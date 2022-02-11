@@ -137,8 +137,6 @@ function ProductShow() {
   })
   const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slice(0, 5)
 
-  console.log(featuredByDesigner.length)
-
   return (
     <>
       {isError && <Error />}
