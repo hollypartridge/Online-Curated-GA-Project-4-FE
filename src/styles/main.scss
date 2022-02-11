@@ -162,9 +162,6 @@ body {
   img {
     width: 90%;
     padding: 20px 10px;
-    &:hover {
-      opacity: 50%;
-    }
   }
   a {
     text-decoration: none;
@@ -267,9 +264,6 @@ body {
     @media screen and (max-width:$tablet) {
       width: 250px;
     }
-    &:hover {
-      opacity: 50%;
-    }
     img {
       width: 100%;
     }
@@ -351,21 +345,12 @@ body {
   }
 }
 
-.added-to-buttons {
-  &:hover {
-    opacity: 80%;
-  }
-}
-
 .show-routes {
   margin: 10px 0px 0px 10px;
   font-size: 13px;
   a {
     text-decoration: none;
     color: blue;
-    &:hover {
-      opacity: 50%;
-    }
   }
   .route-symbol {
     color: blue;
@@ -397,9 +382,6 @@ body {
   p {
     font-size: 14px;
     margin: 0px 0px 10px 10px;
-  }
-  &:hover {
-    opacity: 50%;
   }
 }
 
@@ -521,9 +503,6 @@ body {
       color: black;
         &:hover {
           color: blue;
-          img {
-            opacity: 50%;
-          }
         }
     }
     p {
@@ -581,9 +560,6 @@ body {
     a {
       text-decoration: none;
       color: black;
-      &:hover {
-        opacity: 50%;
-      }
     }
     p {
       font-size: 14px;
@@ -669,9 +645,6 @@ body {
     margin: 0px 0px 20px 0px;
     @media screen and (max-width:$tablet) {
       width: 250px;
-    }
-    &:hover {
-      opacity: 50%;
     }
     img {
       width: 100%;

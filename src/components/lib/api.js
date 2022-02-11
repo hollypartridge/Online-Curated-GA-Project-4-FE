@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 import { getToken, getUserId } from './auth'
-
-const baseUrl = '/api'
+import { baseUrl } from '../../config'
 
 export function headers() {
   return {
@@ -17,41 +16,41 @@ export function getAllProducts() {
 }
 
 export function getSingleProduct(productId) {
-  return axios.get(`${baseUrl}/products/${productId}`)
+  return axios.get(`${baseUrl}/products/${productId}/`)
 }
 
 // * Wishlist Requests
 
 export function addToWishlist(productId, productInteractionInfo) {
-  return axios.post(`/api/products/${productId}/wishlist/`, productInteractionInfo, headers())
+  return axios.post(`${baseUrl}/products/${productId}/wishlist/`, productInteractionInfo, headers())
 }
 
 export function removeFromWishlistShow(productId, wishlistId) {
-  return axios.delete(`/api/products/${productId}/wishlist/${wishlistId}/`, headers())
+  return axios.delete(`${baseUrl}/products/${productId}/wishlist/${wishlistId}/`, headers())
 }
 
 export function removeFromWishlist(productId, e) {
-  return axios.delete(`/api/products/${productId}/wishlist/${e.target.id}/`, headers())
+  return axios.delete(`${baseUrl}/products/${productId}/wishlist/${e.target.id}/`, headers())
 }
 
 // * Shopping Bag Requests
 
 export function addToShoppingBag(productId, productInteractionInfo) {
-  return axios.post(`/api/products/${productId}/shoppingbag/`, productInteractionInfo, headers())
+  return axios.post(`${baseUrl}/products/${productId}/shoppingbag/`, productInteractionInfo, headers())
 }
 
 export function removeFromShoppingBag(productId, e) {
-  return axios.delete(`/api/products/${productId}/shoppingbag/${e.target.id}/`, headers())
+  return axios.delete(`${baseUrl}/products/${productId}/shoppingbag/${e.target.id}/`, headers())
 }
 
 // * Wardrobe Requests
 
 export function addToWardrobe(productId, productInteractionInfo) {
-  return axios.post(`/api/products/${productId}/wardrobe/`, productInteractionInfo, headers())
+  return axios.post(`${baseUrl}/products/${productId}/wardrobe/`, productInteractionInfo, headers())
 }
 
 export function removeFromWardrobe(productId, e) {
-  return axios.delete(`/api/products/${productId}/wardrobe/${e.target.id}/`, headers())
+  return axios.delete(`${baseUrl}/products/${productId}/wardrobe/${e.target.id}/`, headers())
 }
 
 // * Auth Requests
@@ -61,11 +60,11 @@ export function registerUser(formData) {
 }
 
 export function loginUser(formData) {
-  return axios.post('/api/login/', formData)
+  return axios.post(`${baseUrl}/login/`, formData)
 }
 
 // * User Requests
 
 export function getUserProfile() {
-  return axios.get(`/api/profile/${getUserId()}/`)
+  return axios.get(`${baseUrl}/profile/${getUserId()}/`)
 }
