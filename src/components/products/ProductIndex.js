@@ -46,11 +46,10 @@ function ProductIndex() {
     setSelectedType(e.target.innerText)
   }
 
-  const filteredClothing = () => {
-    return products.filter(product => {
-      return product.type === selectedType || selectedType === 'All'
-    })
-  }
+  const filteredClothing = products.filter(product => {
+    return product.type === selectedType || selectedType === 'All'
+  })
+
 
   return (
     <div className="index-page">
@@ -88,7 +87,6 @@ function ProductIndex() {
               <p className='index-options' onClick={handleTypeChangeClick}>Hats</p>
               <p className='index-options' onClick={handleTypeChangeClick}>Jewellery</p>
               <p className='index-options' onClick={handleTypeChangeClick}>Socks</p>
-              <p className='index-options' onClick={handleTypeChangeClick}>Sunglasses</p>
               <p className='index-options' onClick={handleTypeChangeClick}>Tights</p>
             </>
           }
@@ -125,7 +123,7 @@ function ProductIndex() {
         {isError && <Error />}
         {isLoading && <Loading />}
         {products &&
-          filteredClothing().map(product => (
+          filteredClothing.map(product => (
             <div key={product.id} className='gallery'>
               <Link key={product.id} to={`/shop/${product.id}`}>
                 <img src={product.image} alt={product.name}/>

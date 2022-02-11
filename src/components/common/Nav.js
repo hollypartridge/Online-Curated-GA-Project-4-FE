@@ -5,8 +5,7 @@ import { isAuthenticated, removeToken, removeUserId } from '../lib/auth'
 
 function Nav() {
   const [isUserMenuOpen, setUserMenuOpen] = React.useState(false)
-  const [isShoppingBagMenuOpen, setisShoppingBagMenuOpen] =
-    React.useState(false)
+  const [isShoppingBagMenuOpen, setisShoppingBagMenuOpen] = React.useState(false)
   const [isWishListOpen, setisWishListOpen] = React.useState(false)
   const navigate = useNavigate()
   const isAuth = isAuthenticated()

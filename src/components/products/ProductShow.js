@@ -137,6 +137,8 @@ function ProductShow() {
   })
   const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slice(0, 5)
 
+  console.log(featuredByDesigner.length)
+
   return (
     <>
       {isError && <Error />}
@@ -197,23 +199,22 @@ function ProductShow() {
           </div>
         </div>
       </div>}
-      <p className='show-more'>More From {product.designer}... ✨</p>
-      <div className="show-page-second-section">
-        {products && 
-      featuredProducts.map(product => (
-        <div key={product.id} 
-          className='show-featured-products'
-        >
-          <Link 
-            key={product.id} 
-            to={`/shop/${product.id}`}
-          >
-            <img src={product.image} id={product.id}/>
-            <p>{product.name}</p>
-          </Link>
-        </div>
-      ))}
-      </div>
+      <><p className='show-more'>More From {product.designer}... ✨</p><div className="show-page-second-section">
+        {products &&
+            featuredProducts.map(product => (
+              <div key={product.id}
+                className='show-featured-products'
+              >
+                <Link
+                  key={product.id}
+                  to={`/shop/${product.id}`}
+                >
+                  <img src={product.image} id={product.id} />
+                  <p>{product.name}</p>
+                </Link>
+              </div>
+            ))}
+      </div></>
     </>
   )
 }

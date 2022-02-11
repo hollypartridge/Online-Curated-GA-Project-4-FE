@@ -13,19 +13,6 @@ function Home() {
   const [isHovering, setIsHovering] = React.useState(false)
   const [whatProductHovering, setWhatProductHovering] = React.useState(null)
 
-  const handleClick = () => {
-    setIsChangingNewIn(!isChangingNewIn)
-  }
-
-  const handleMouseEnter = (e) => {
-    setIsHovering(true)
-    setWhatProductHovering(e.target.id)
-  }
-
-  const handleMouseLeave = () => {
-    setIsHovering(false)
-  }
-
   React.useEffect(() => {
     const getData = async () => {
       try {
@@ -38,12 +25,23 @@ function Home() {
     getData()
   }, [])
 
-  const featuredProducts = () => {
-    return products.filter(product => {
-      if (product.featuredProduct) {
-        return product
-      }
-    })
+  const featuredProducts = products.filter(product => {
+    if (product.featuredProduct) {
+      return product
+    }
+  })
+
+  const handleClick = () => {
+    setIsChangingNewIn(!isChangingNewIn)
+  }
+
+  const handleMouseEnter = (e) => {
+    setIsHovering(true)
+    setWhatProductHovering(e.target.id)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
   }
 
   return (
@@ -91,7 +89,7 @@ function Home() {
         {isError && <Error />}
         {isLoading && <Loading />}
         {products && 
-        featuredProducts().map(product => (
+        featuredProducts.map(product => (
           <div key={product.id} 
             className='featured-products'
             onMouseEnter={handleMouseEnter}

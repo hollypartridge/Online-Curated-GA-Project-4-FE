@@ -375,16 +375,17 @@ body {
 .show-page-second-section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+  padding: 0px 0px 0px 10px;
   @media screen and (max-width:$featured) {
     display: none;
   }
 }
 
 .show-featured-products {
-  border-right: 1px solid black;
+  margin: 0px;
   width: 19.9%;
   img {
     width: 100%;
