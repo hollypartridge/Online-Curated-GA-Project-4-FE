@@ -1,6 +1,6 @@
 # Online Curated | GA Project 4
 
-![E-POP](/assets/homepage.png)
+![Online Curated](/assets/home.png)
 
 ## Table of Contents
 * [Overview](#overview "Goto overview")
@@ -306,7 +306,7 @@ const handleMouseEnter = (e) => {
   )
 ```
 
-![E-POP](/assets/homepage.png)
+![Featured Products](/assets/home2.png)
 
 #### Shop Page
 I created the shop page filter by using an `onClick` event listener and stored the `e.target.innerText`. I then filtered through the data, that was stored in the `products` variable during my `getData` function, to return products that `type` value matched the `e.target.innerText`. To display these I mapped through `filteredClothing` in the return.
@@ -317,7 +317,7 @@ const filteredClothing = products.filter(product => {
   })
 ```
 
-![E-POP](/assets/homepage.png)
+![Shop](/assets/shop.png)
 
 #### Individual Product Page
 The product page handles many events and API requests, such as add to shopping bag, add to wishlist and add to wardrobe. In the `getData` function I check to see whether the product is in a user's shopping bag, wishlist or wardrobe and then conditionally render the buttons based on this data. 
@@ -349,7 +349,7 @@ const handleAddToWishList = async () => {
   }
 ```
 
-![E-POP](/assets/homepage.png)
+![Product](/assets/product.png)
 
 To add extra functionality to the page I created a section that displays more products from the designer of the product you are viewing. To do this I filtered through the products to return all the products by the same designer except the product whose page the user is viewing. After this I used array methods to produce 5 random products and stored these in the `featuredProducts` variable. I then mapped through the `featuredProducts` array to display 5 more products by the designer. 
 
@@ -361,7 +361,7 @@ const featuredByDesigner = products.filter(product => {
 const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slice(0, 5)
 ```
 
-![E-POP](/assets/homepage.png)
+![Featured Designer](/assets/product2.png)
 
 #### Search 
 I really wanted to have my search bar in the nav, as throughout my research this seemed like common practice for e-commerce sites. As I spent ages trying to work out how to do this with the different React components, but as neither `Nav.js` or `ProductIndex.js` were children of one another I couldn't pass data as props. To work round this I created a seperate component for the search functionality and used CSS to give the effect that the search bar was in the navbar. I used the `onChange` event listener and event target to filter through the products based on the search term and then mapped through these products to display them.
@@ -380,7 +380,7 @@ const filteredProducts = products.filter(product => {
 })
 ```
 
-![E-POP](/assets/homepage.png)
+![Search](/assets/search.png)
 
 #### Login, Register, Logout
 For the login and register components I created forms where the user could enter their information. This information was stored as an object, using an `onChange` event listener, the event target and a spread operator. Once the form was submitted the information collected (stored as `formData`) was then used in the API request. When the user was logging in their token was saved in local storage. To error handle in the Login and Register components I used a variables set in the catch block and conditional rendering to display these errors to the user. When the user logs out they invoke `removeToken()`, which removes the token from local sotrage. The navbar is conditionally rendered depending on whether the user is logged in (or has a token in their local storage). There is also a `SecureRoute.js` component that stops users who are not logged in from accessing user only pages by typing in the URL.
@@ -406,7 +406,7 @@ const handleSubmit = async (e) => {
 }
 ```
 
-![E-POP](/assets/homepage.png)
+![Login](/assets/login.png)
 
 #### Shopping Bag
 The shopping bag component uses an API request to check what products the user has in their shopping bag and then maps through these to display them. If there are no products in the user's shopping bag, I used conditional rendering to display a message informing them and a continue shopping button. There is a remove button for each product, which triggers an `onClick` event and sends an API request to the server. To calculate the total price I used the reduce array method and set state within the function so that it would re-render. 
@@ -424,7 +424,7 @@ const handleTotalPrice = (shoppingBag) => {
 }
 ```
 
-![E-POP](/assets/homepage.png)
+![Bag](/assets/bag.png)
 
 #### Checkout
 In the checkout I created a form where users can enter their information. The radio button changes the 'shipping total' and 'subtotal' automatically as it sets state to re-render the page. When the user clicks checkout, provided the user submits their working email address, they will be sent an email from me. I did this using the package 'Email.js' and followed their documentation. The submit also sends an API request to delete all the products from the shopping bag and navigates to an order confirmation page. If the catch block runs the form errors are displayed as a message to create a better user experience.
@@ -445,7 +445,7 @@ const handleSubmit = (e) => {
   }
 ```
 
-![E-POP](/assets/homepage.png)
+![Checkout](/assets/checkout.png)
 
 #### Wishlist
 The wishlist component has similar (but less) functionality than the shopping bag. It contains:
@@ -466,7 +466,7 @@ const handleRemoveFromWishlist = async (e) => {
 }
 ```
 
-![E-POP](/assets/homepage.png)
+![Wishlist](/assets/wishlist.png)
 
 #### Wardrobe
 The wardrobe is my favourite feature as it was really fun to make and experiment with. It was also the most challenging part of the project. I created a old school window style div to store the products in a user's wardrobe. I did this by sending an API request to check what products the user has in their wardrobe and then mapping through them. Each product can also be removed from the wardrobe by clicking the 'x', which sends a `DELETE` API request to the server. I created a pop up window to explain how the wardrobe feature works for a better user experience. 
@@ -482,7 +482,7 @@ const [{ isDragging }, drag] = useDrag(() => ({
   }),
 ```
 
-![E-POP](/assets/homepage.png)
+![Wardrobe Popup](/assets/wardrobe.png)
 
 Next I made the try on area a 'dropzone' triggering a function `addImageToBoard` when a product was dropped there. The `addImageToBoard()` filters through the products in the finder and returns the one that matches the id of the product just dropped. I then set state using the variable `board` that spreads the original empty array to now include products in the dropzone. To display the first 4 products in the `board` array I mapped through it and used the slice method. There is also a 'start again' button, which sets `board` to an empty array, removing the displayed products. 
 
@@ -502,7 +502,7 @@ const addImageToBoard = (id) => {
 }
 ```
 
-![E-POP](/assets/homepage.png)
+![Wardrobe Functionality](/assets/wardrobe2.png)
 
 ## Challenges
 
