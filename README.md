@@ -93,7 +93,7 @@ Day 7:
 ### The Build
 
 ### Back-end
-I began working on the back-end by setting up Django. I created a new environment and installed django into it, entered the virtual environment and started a new Django project. Next I hooked up Postgres as the database and created the database in Postgres. I ran the migrations, created an admin user and started up the server to check it was all running successfully.
+I began working on the back-end by setting up Django. I created a new environment and installed Django into it, entered the virtual environment and started a new Django project. Next I hooked up Postgres as the database and created the database in Postgres. I ran the migrations, created an admin user and started up the server to check it was all running successfully.
 
 #### Creating the Products Model
 I created a new products app and hooked it up to the Django product by adding it to `INSTALLED_APPS` in the `project/settings.py` file. I then created my products model. For the category and type fields I used a multiple choice option to make it easier when adding data.
@@ -121,7 +121,7 @@ class Product(models.Model):
 ```
 
 #### Django Rest Framework
-I installed DRF into my project and registered it as an app. I created a product serialiser to convert the model data to JSON and then updated the view to use the serializer rather than the `index.html`.
+I installed DRF into my project and registered it as an app. I created a product serializer to convert the model data to JSON and then updated the view to use the serializer rather than the `index.html`.
 
 ```py
 class ProductSerializer(serializers.ModelSerializer):
@@ -135,7 +135,7 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'
 ```
 
-I used DRF generics to for the views as I only needed to get all the products, get a single product and update a single product. After this I hooked up the URLs in both `products/views.py` and `project/urls.py`.
+I used DRF generics for the views as I only needed to get all the products, get a single product and update a single product. After this I hooked up the URLs in both `products/views.py` and `project/urls.py`.
 
 ```py
 class ProductListView(ListAPIView):
@@ -269,7 +269,7 @@ An example of the data for a product:
 ### Front-end
 
 #### Home Page
-The home page features fashion editorial images of the brand we stock. I create an interactive hero where the user could click to see a different 'New In' brand. I did this using an `onClick` event listener, toggling a Boolean value and conditional rendering. The banners were created in SCSS using animations, which separated the page for a better user experience. The favourite products all had a Boolean key with the value true, which I created in the back-end. To display these I made an API request to get all the products and then filtered them based on whether their `featuredProduct` key had a truthy value. I also used the `onMouseEnter` and `onMouseLeave`, the event target and conditional rendering to display the product name when the user hovers over the product.
+The home page features fashion editorial images of the brand we stock. I created an interactive hero where the user could click to see a different 'New In' brand. I did this using an `onClick` event listener, toggling a Boolean value and conditional rendering. The banners were created in SCSS using animations, which separated the page for a better user experience. The favourite products all had a Boolean key with the value true, which I created in the back-end. To display these I made an API request to get all the products and then filtered them based on whether their `featuredProduct` key had a truthy value. I also used the `onMouseEnter` and `onMouseLeave`, the event target and conditional rendering to display the product name when the user hovers over the product.
 
 ```js
 const handleMouseEnter = (e) => {
@@ -309,7 +309,7 @@ const handleMouseEnter = (e) => {
 ![Featured Products](/assets/home2.png)
 
 #### Shop Page
-I created the shop page filter by using an `onClick` event listener and stored the `e.target.innerText`. I then filtered through the data, that was stored in the `products` variable during my `getData` function, to return products that `type` value matched the `e.target.innerText`. To display these I mapped through `filteredClothing` in the return.
+I created the shop page filter by using an `onClick` event listener and stored the `e.target.innerText`. I then filtered through the data that was stored in the `products` variable during my `getData` function to return products that `type` value matched the `e.target.innerText`. To display these I mapped through `filteredClothing` in the return.
 
 ```js
 const filteredClothing = products.filter(product => {
@@ -364,7 +364,7 @@ const featuredProducts = featuredByDesigner.sort(() => 0.5 - Math.random()).slic
 ![Featured Designer](/assets/product2.png)
 
 #### Search 
-I really wanted to have my search bar in the nav, as throughout my research this seemed like common practice for e-commerce sites. As I spent ages trying to work out how to do this with the different React components, but as neither `Nav.js` or `ProductIndex.js` were children of one another I couldn't pass data as props. To work round this I created a seperate component for the search functionality and used CSS to give the effect that the search bar was in the navbar. I used the `onChange` event listener and event target to filter through the products based on the search term and then mapped through these products to display them.
+I really wanted to have my search bar in the nav, as throughout my research this seemed like common practice for e-commerce sites. As I spent ages trying to work out how to do this with the different React components, but as neither `Nav.js` or `ProductIndex.js` were children of one another I couldn't pass data as props. To work round this I created a separate component for the search functionality and used CSS to give the effect that the search bar was in the navbar. I used the `onChange` event listener and event target to filter through the products based on the search term and then mapped through these products to display them.
 
 ```js
 const handleSearch = (e) => {
@@ -383,7 +383,7 @@ const filteredProducts = products.filter(product => {
 ![Search](/assets/search.png)
 
 #### Login, Register, Logout
-For the login and register components I created forms where the user could enter their information. This information was stored as an object, using an `onChange` event listener, the event target and a spread operator. Once the form was submitted the information collected (stored as `formData`) was then used in the API request. When the user was logging in their token was saved in local storage. To error handle in the Login and Register components I used a variables set in the catch block and conditional rendering to display these errors to the user. When the user logs out they invoke `removeToken()`, which removes the token from local sotrage. The navbar is conditionally rendered depending on whether the user is logged in (or has a token in their local storage). There is also a `SecureRoute.js` component that stops users who are not logged in from accessing user only pages by typing in the URL.
+For the login and register components I created forms where the user could enter their information. This information was stored as an object, using an `onChange` event listener, the event target and a spread operator. Once the form was submitted the information collected (stored as `formData`) was then used in the API request. When the user was logging in their token was saved in local storage. For error handling in the Login and Register components I used a variable set in the catch block and conditional rendering to display these errors to the user. When the user logs out they invoke `removeToken()`, which removes the token from local storage. The navbar is conditionally rendered depending on whether the user is logged in (or has a token in their local storage). There is also a `SecureRoute.js` component that stops users who are not logged in from accessing user only pages by typing in the URL.
 
 ```js
 const [formData, setFormData] = React.useState(initialState)
@@ -469,7 +469,7 @@ const handleRemoveFromWishlist = async (e) => {
 ![Wishlist](/assets/wishlist.png)
 
 #### Wardrobe
-The wardrobe is my favourite feature as it was really fun to make and experiment with. It was also the most challenging part of the project. I created a old school window style div to store the products in a user's wardrobe. I did this by sending an API request to check what products the user has in their wardrobe and then mapping through them. Each product can also be removed from the wardrobe by clicking the 'x', which sends a `DELETE` API request to the server. I created a pop up window to explain how the wardrobe feature works for a better user experience. 
+The wardrobe is my favourite feature as it was really fun to make and experiment with. It was also the most challenging part of the project. I created an old school window style div to store the products in a user's wardrobe. I did this by sending an API request to check what products the user has in their wardrobe and then mapping through them. Each product can also be removed from the wardrobe by clicking the 'x', which sends a `DELETE` API request to the server. I created a pop up window to explain how the wardrobe feature works for a better user experience. 
 
 For the wardrobe I really wanted to be able to drag and drop products from the finder into the try on area to create outfits. To do this I used React-dnd and started by making the elements in the finder draggable using React-dnd's syntax and documentation. 
 
@@ -484,7 +484,7 @@ const [{ isDragging }, drag] = useDrag(() => ({
 
 ![Wardrobe Popup](/assets/wardrobe.png)
 
-Next I made the try on area a 'dropzone' triggering a function `addImageToBoard` when a product was dropped there. The `addImageToBoard()` filters through the products in the finder and returns the one that matches the id of the product just dropped. I then set state using the variable `board` that spreads the original empty array to now include products in the dropzone. To display the first 4 products in the `board` array I mapped through it and used the slice method. There is also a 'start again' button, which sets `board` to an empty array, removing the displayed products. 
+Next I made the 'try on' area a 'dropzone' triggering a function `addImageToBoard` when a product was dropped there. The `addImageToBoard()` filters through the products in the finder and returns the one that matches the id of the product just dropped. I then set state using the variable `board` that spreads the original empty array to now include products in the dropzone. To display the first 4 products in the `board` array I mapped through it and used the slice method. There is also a 'start again' button, which sets `board` to an empty array, removing the displayed products. 
 
 ```js
 const addImageToBoard = (id) => {
