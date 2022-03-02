@@ -9,7 +9,6 @@
 * [Technologies Used](#technologies-used "Goto technologies-used")
 * [Installation](#Installation "Goto Installation")
 * [Process](#process "Goto process")
-* [Bugs](#bugs "Goto bugs")
 * [Challenges](#challenges "Goto challenges")
 * [Wins](#wins "Goto wins")
 * [Future Improvements](#future-improvements "Goto future-improvements")
