@@ -484,7 +484,7 @@ const [{ isDragging }, drag] = useDrag(() => ({
 
 ![Wardrobe Popup](/assets/wardrobe.png)
 
-Next I made the 'try on' area a 'dropzone' triggering a function `addImageToBoard` when a product was dropped there. The `addImageToBoard()` filters through the products in the finder and returns the one that matches the id of the product just dropped. I then set state using the variable `board` that spreads the original empty array to now include products in the dropzone. To display the first 4 products in the `board` array I mapped through it and used the slice method. There is also a 'start again' button, which sets `board` to an empty array, removing the displayed products. 
+Next I made the tried on area a 'dropzone' triggering a function `addImageToBoard` when a product was dropped there. The `addImageToBoard()` filters through the products in the finder and returns the one that matches the id of the product just dropped. I then set state using the variable `board` that spreads the original empty array to now include products in the dropzone. To display the first 4 products in the `board` array I mapped through it and used the slice method. There is also a 'start again' button, which sets `board` to an empty array, removing the displayed products. 
 
 ```js
 const addImageToBoard = (id) => {
